@@ -24,10 +24,11 @@ class CompressedTrie:
                     last_idx = i
                 else:
                     return last_idx
-
+    #TODO
     def insert(self, key):
         ptr = self.root
         length = len(key)
+        print("----------"+key+"----------")
         for level in range(length):
             index = self._charToIndex(key[level])
             if not ptr.children[index]: #None at would be location
@@ -36,19 +37,24 @@ class CompressedTrie:
                 return
             else: #Something there
                 cmp = self._cmpstr(ptr.children[index].data, key[level:])
-                # ERROR: when cmp = 0
                 if cmp != -1:   #Something there that matches
+                    print(cmp)
                     node = ptr.children[index].data
                     ptr.children[index].data = node[:cmp+1]
                     cur = ptr.children[index]
                     cur.isLeaf = False
+                    print("node[:cmp+1]= "+ node[:cmp+1])
                     # New node after split
                     index2 = self._charToIndex(node[cmp+1]) #Index is first char of next segment
+                    print("node[cmp+1]= " + node[cmp+1])
                     cur.children[index2] = self.newNode(node[cmp+1:])
+                    print("node[cmp+1:]" + node[cmp+1:])
                     cur.children[index2].isLeaf = True
                 else: #Something that doesn't match at all
-                    print('ERROR: something here should have matched')
+                    print('ERROR, insert: something here should have matched')
+                ptr = ptr.children[index]
     
+    # TODO: Fix for compressed trie
     def search(self, key):
         ptr = self.root
         length = len(key)
@@ -70,23 +76,10 @@ def main():
   
     # Trie object 
     t = CompressedTrie() 
-
-    t.insert("by")
-    for child in t.root.children:
-        
-        if child:
-            print("Level 1")
-            print(child.data + " " + str(child.isLeaf))
-            for c in child.children:
-                
-                if c:
-                    print("level 2")
-                    print(c.data + " " + str(c.isLeaf))
-    t.insert("both")
     
-    # # Construct trie 
-    # for key in keys: 
-    #     t.insert(key) 
+    # Construct trie 
+    for key in keys: 
+        t.insert(key) 
   
     # # # Search for different keys 
     # print("{} ---- {}".format("the",output[t.search("the")])) 
