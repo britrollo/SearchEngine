@@ -13,44 +13,41 @@ class CompressedTrie:
     
     def _charToIndex(self, ch):
         return ord(ch)-ord('a')
-
-
-    def print(self, p):
-        ptr = p
-        if ptr.isLeaf:
-            return
-        while True:
-            print(ptr)
-            children = ptr.children
-            for child in children:
-                print(child.data)
-                self.print(child) 
-
+    
+    def _cmpstr(self, og, addition):
+        last_idx = -1
+        for i in range(max(len(og), len(addition))):
+            if i > len(og) or i > len(addition):
+                return last_idx
+            else:
+                if og[i] == addition[i]:
+                    last_idx = i
+                else:
+                    return last_idx
 
     def insert(self, key):
         ptr = self.root
         length = len(key)
         for level in range(length):
-            letter = key[level]
-            index = self._charToIndex(letter)
-            if not ptr.children[index]:
+            index = self._charToIndex(key[level])
+            if not ptr.children[index]: #None at would be location
                 ptr.children[index] = self.newNode(key[level:])
                 ptr.children[index].isLeaf = True
                 return
-            else:
-                node = ptr.children[index].data
-
-                ptr.children[index].data = node[0]
-                ptr.isLeaf = False
-                # self._insert_below(ptr.children[index], node[1:])
-                cur = ptr.children[index]
-                index2 = self._charToIndex(node[1])
-                next = cur.children[index2]
-                next = self.newNode(node[1:])
-            
-            ptr = ptr.children[index]
-
-        ptr.isLeaf = True
+            else: #Something there
+                cmp = self._cmpstr(ptr.children[index].data, key[level:])
+                # ERROR: when cmp = 0
+                if cmp != -1:   #Something there that matches
+                    node = ptr.children[index].data
+                    ptr.children[index].data = node[:cmp+1]
+                    cur = ptr.children[index]
+                    cur.isLeaf = False
+                    # New node after split
+                    index2 = self._charToIndex(node[cmp+1]) #Index is first char of next segment
+                    cur.children[index2] = self.newNode(node[cmp+1:])
+                    cur.children[index2].isLeaf = True
+                else: #Something that doesn't match at all
+                    print('ERROR: something here should have matched')
     
     def search(self, key):
         ptr = self.root
@@ -75,6 +72,16 @@ def main():
     t = CompressedTrie() 
 
     t.insert("by")
+    for child in t.root.children:
+        
+        if child:
+            print("Level 1")
+            print(child.data + " " + str(child.isLeaf))
+            for c in child.children:
+                
+                if c:
+                    print("level 2")
+                    print(c.data + " " + str(c.isLeaf))
     t.insert("both")
     
     # # Construct trie 
@@ -87,10 +94,14 @@ def main():
     # print("{} ---- {}".format("their",output[t.search("their")])) 
     # print("{} ---- {}".format("thaw",output[t.search("thaw")])) 
     for child in t.root.children:
+        
         if child:
+            print("Level 1")
             print(child.data + " " + str(child.isLeaf))
             for c in child.children:
+                
                 if c:
+                    print("level 2")
                     print(c.data + " " + str(c.isLeaf))
    
     # t.print(t.root)
