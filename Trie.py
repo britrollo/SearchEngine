@@ -60,23 +60,23 @@ class CompressedTrie:
                     ptr.children[index].isLeaf = True
                     return
                 else: #Something there
-                    cmp = self._cmpstr(ptr.children[index].data, key[level:])
-                    if cmp != -1:   #Something there that matches
-                        flag = cmp
+                    comp = self._cmpstr(ptr.children[index].data, key[level:])
+                    if comp != -1:   #Something there that matches
+                        flag = comp
                         node = ptr.children[index].data
-                        # print("node[:cmp+1] = "+ node[:cmp+1])
-                        ptr.children[index].data = node[:cmp+1]
+                        # print("node[:cmp+1] = "+ node[:comp+1])
+                        ptr.children[index].data = node[:comp+1]
                         cur = ptr.children[index]
                         cur.isLeaf = False
                         # New node after split
-                        if cmp+1 < len(node):
-                            # print("node[cmp+1] = "+ node[cmp+1])
-                            index2 = self._charToIndex(node[cmp+1]) #Index is first char of next segment
+                        if comp+1 < len(node):
+                            # print("node[cmp+1] = "+ node[comp+1])
+                            index2 = self._charToIndex(node[comp+1]) #Index is first char of next segment
                             # Move node's children
                             save_children = cur.children
                             cur.children = [None]*26
-                            cur.children[index2] = self.newNode(node[cmp+1:])
-                            # print("node[cmp+1:] = "+ node[cmp+1:])
+                            cur.children[index2] = self.newNode(node[comp+1:])
+                            # print("node[cmp+1:] = "+ node[comp+1:])
                             cur.children[index2].children = save_children
                             if self._noneCheck(save_children):
                                 cur.children[index2].isLeaf = True
@@ -90,11 +90,24 @@ class CompressedTrie:
     def search(self, key):
         ptr = self.root
         length = len(key)
+        flag = 0
         for level in range(length):
-            index = self._charToIndex(key[level])
-            if not ptr.children[index]:
-                return False
-            ptr = ptr.children[index]
+            if flag > 0:
+                flag = flag - 1
+            else:
+                index = self._charToIndex(key[level])
+                if not ptr.children[index]:
+                    return False
+                else:
+                    comp = self._cmpstr(ptr.children[index].data, key[level:])
+                    #The node matches rest of the string
+                    if ptr.children[index].data == key[level:] and ptr.children[index].isLeaf:
+                        return True
+                    elif ptr.children[index].data != key[level:] and ptr.children[index].isLeaf:
+                        return False
+                    else:
+                        flag = comp
+                        ptr = ptr.children[index]
         return ptr != None and ptr.isLeaf
 
     # driver function 
@@ -120,23 +133,11 @@ def main():
     # print(t.root.data)
   
     # # # Search for different keys 
-    # print("{} ---- {}".format("the",output[t.search("the")])) 
-    # print("{} ---- {}".format("these",output[t.search("these")])) 
-    # print("{} ---- {}".format("their",output[t.search("their")])) 
-    # print("{} ---- {}".format("thaw",output[t.search("thaw")])) 
-    # for child in t.root.children:
-        
-    #     if child:
-    #         print("Level 1")
-    #         print(child.data + " " + str(child.isLeaf))
-    #         for c in child.children:
-                
-    #             if c:
-    #                 print("level 2")
-    #                 print(c.data + " " + str(c.isLeaf))
-   
-    # t.print(t.root)
+    print("{} ---- {}".format("bear",output[t.search("bear")])) 
+    print("{} ---- {}".format("bit",output[t.search("bit")])) 
+    print("{} ---- {}".format("stop",output[t.search("stop")])) 
+    print("{} ---- {}".format("stoop",output[t.search("stoop")])) 
   
-if __name__ == '__main__': 
-    main() 
+# if __name__ == '__main__': 
+#     main() 
   
