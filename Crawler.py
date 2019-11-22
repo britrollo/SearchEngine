@@ -1,7 +1,15 @@
 from bs4 import BeautifulSoup
-from Trie import CompressedTrie
+import requests
+# from Trie import CompressedTrie
 
-def page_load(webpage):
+# TODO: Load webpage from hyperlink
+def page_load(url):
+    r = requests.get("http://"+url)
+    data = r.text
+    return data
+
+# TODO: Read data from webpage
+def page_read(webpage):
     with open(webpage) as wp:
         soup = BeautifulSoup(wp)
 
