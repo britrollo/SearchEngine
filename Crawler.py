@@ -2,14 +2,23 @@ from bs4 import BeautifulSoup
 import requests
 # from Trie import CompressedTrie
 
-# TODO: Load webpage from hyperlink
 def page_load(url):
+    """
+    Loads all data from webpage given the url 
+    Parameters: string url - webpage url
+    Return: string data - webpage HTML data
+    """
     r = requests.get("http://"+url)
     data = r.text
     return data
 
 # TODO: Read data from webpage
 def page_read(webpage):
+    """
+    Process data loaded from webpage
+    Parameters: webpage - data loaded from webpage
+    Return: None - all data is loaded into Trie
+    """
     with open(webpage) as wp:
         soup = BeautifulSoup(wp)
 
