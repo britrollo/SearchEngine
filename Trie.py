@@ -3,6 +3,7 @@ class TrieNode:
         self.children=[None]*26
         self.data=key
         self.isLeaf = False
+        self.isWord = False
 
 class CompressedTrie:
     def __init__(self):
@@ -37,13 +38,11 @@ class CompressedTrie:
         # print("----------" + str(root.data) + "----------")
         for i in range(len(ptr)):
             if ptr[i]:
-                if ptr[i].isLeaf:
+                if ptr[i].isWord:
                     # print(ptr[i].data)
                     # print("full word: " + (s+ptr[i].data))
                     print((s+ptr[i].data))
-                else:
-                    # print("addition: " + ptr[i].data)
-                    self.print(ptr[i], s+ptr[i].data, level+1)
+                self.print(ptr[i], s+ptr[i].data, level+1)
 
     def insert(self, key):
         ptr = self.root
@@ -58,14 +57,20 @@ class CompressedTrie:
                 if not ptr.children[index]: #None at would be location
                     ptr.children[index] = self.newNode(key[level:])
                     ptr.children[index].isLeaf = True
+                    ptr.children[index].isWord = True
                     return
                 else: #Something there
                     comp = self._cmpstr(ptr.children[index].data, key[level:])
+                    # print(comp) 
+                    if comp is None:    # Exact match - mark it as word
+                        ptr.children[index].isWord = True
+                        return
                     if comp != -1:   #Something there that matches
                         flag = comp
                         node = ptr.children[index].data
                         # print("node[:cmp+1] = "+ node[:comp+1])
                         ptr.children[index].data = node[:comp+1]
+                        ptr.children[index].isWord = False
                         cur = ptr.children[index]
                         cur.isLeaf = False
                         # New node after split
@@ -76,6 +81,7 @@ class CompressedTrie:
                             save_children = cur.children
                             cur.children = [None]*26
                             cur.children[index2] = self.newNode(node[comp+1:])
+                            cur.children[index2].isWord = True
                             # print("node[cmp+1:] = "+ node[comp+1:])
                             cur.children[index2].children = save_children
                             if self._noneCheck(save_children):
@@ -100,10 +106,19 @@ class CompressedTrie:
                     return False
                 else:
                     comp = self._cmpstr(ptr.children[index].data, key[level:])
+                    # print(key)
+                    # print("ptr.children[index].data: " + ptr.children[index].data) 
+                    # print("key[level:]: " + key[level:])
+                    # print("comp: " + str(comp))
+                    # print(ptr.children[index].data == key[level:])
+                    # print(ptr.children[index].isWord)
+
                     #The node matches rest of the string
-                    if ptr.children[index].data == key[level:] and ptr.children[index].isLeaf:
+                    if ptr.children[index].data == key[level:] and ptr.children[index].isWord:
                         return True
                     elif ptr.children[index].data != key[level:] and ptr.children[index].isLeaf:
+                        return False
+                    elif ptr.children[index].data == key[level:] and not ptr.children[index].isWord:
                         return False
                     else:
                         flag = comp
