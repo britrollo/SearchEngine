@@ -15,6 +15,25 @@ from nltk.stem.wordnet import WordNetLemmatizer # maybe all words should be chan
 #                 "to", "up", "unlike", "via", "with", "without", "not", "and"]
 # STOPWORDS = ARTICLES + PRONOUNS + PREPOSITIONS
 
+#TODO: debug - something wrong with how urls are added to inv_idx.idx - only one is being returned
+def search(terms):
+    results = []
+    print(terms)
+    for x in terms:
+        if x not in set(stopwords.words('english')):
+            print(x)
+            print(Crawler.cache.search(x))
+            if Crawler.cache.search(x):
+                # word found
+                urls = Crawler.inv_idx.idx[x]
+                if results == []:
+                    results = urls
+                else: #intersection
+                    results = [value for value in results if value in urls] 
+            else:
+                return None
+    return results
+
 def main():
     """
     1. User inputs website
@@ -32,25 +51,30 @@ def main():
         where w is word and c is occurence count for the page
     6. Return results
     """
-    url = input("Site to search: ")
+    # url = input("Site to search: ")
     #Load pages into trie
+    print("Loading data...")
+    url = "http://www.dataquest.io/blog/web-scraping-tutorial-python/"
     page = Crawler.page_load(url)
-    d = Crawler.page_read(page)
+    d = Crawler.page_read(page, url, True)
 
     #Loop user searching
-    # while True:
-    #     search = input("Search: ")
-    #     search = search.split()
-    #     if search == []:
-    #         continue
-    #     elif search[0][0] == ":":
-    #         if search[0][1:] == "quit":
-    #             print("Goodbye!")
-    #             return
-    #     else:
-    #         for x in search:
-    #             if x not in set(stopwords.words('english')):
-    #                 print(x)
+    while True:
+        search_terms = input("Search: ")
+        if search_terms == []:
+            continue
+        elif search_terms[0][0] == ":":
+            if search_terms[0][1:] == "quit":
+                print("Goodbye!")
+                return
+        else:
+            search_terms = Crawler.remove_punc(search_terms)
+            results = search(search_terms)
+            if results:
+                #results found
+                print(results)
+            else:
+                print("No results found")
                     
 
 if __name__ == '__main__': 
