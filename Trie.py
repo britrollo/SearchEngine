@@ -70,6 +70,7 @@ class CompressedTrie:
                         node = ptr.children[index].data
                         # print("node[:cmp+1] = "+ node[:comp+1])
                         ptr.children[index].data = node[:comp+1]
+                        # Node data will be split - therefore no longer a word
                         ptr.children[index].isWord = False
                         cur = ptr.children[index]
                         cur.isLeaf = False
@@ -80,6 +81,7 @@ class CompressedTrie:
                             # Move node's children
                             save_children = cur.children
                             cur.children = [None]*26
+                            # Split causes new Node to be word
                             cur.children[index2] = self.newNode(node[comp+1:])
                             cur.children[index2].isWord = True
                             # print("node[cmp+1:] = "+ node[comp+1:])
