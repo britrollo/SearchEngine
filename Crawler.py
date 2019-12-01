@@ -21,7 +21,11 @@ def page_load(url):
     data = r.content
     return data
 
+# TODO : comment 
 def strip_accents(text):
+    """
+    Replace accented letters in word with equivalent for processing in trie
+    """
     try:
         text = unicode(text, 'utf-8')
     except NameError: # unicode is a default on python 3 
@@ -33,7 +37,10 @@ def strip_accents(text):
 
     return str(text)
 
+# TODO : comment 
 def str_check(w):
+    """
+    """
     return w not in set(stopwords.words('english')) and \
             not w.isnumeric() and \
             not any(char.isdigit() for char in w)
