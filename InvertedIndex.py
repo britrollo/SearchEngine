@@ -25,9 +25,6 @@ class InvertedIndex:
             url = url[:-1]
         if url not in self.idx[w]:
             self.idx[w] = self.idx[w] + [url]
-            self.rank[url] = {}
-            self.rank[url][w] = c 
-        
         if url in self.rank:
             if w in self.rank[url]:
                 self.rank[url][w] = self.rank[url][w] + c
