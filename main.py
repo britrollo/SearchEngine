@@ -27,6 +27,24 @@ def merge(s1, s2, s):
             j = j + 1
     return s
 
+#TODO: comment
+def partition(arr, low, high):
+    i = (low -1)
+    pivot = arr[high][0]
+    for j in range(low, high):
+        if arr[j][0] < pivot:
+            i = i+1
+            arr[i],arr[j] = arr[j],arr[i]
+    arr[i+1],arr[high] = arr[high],arr[i+1]
+    return (i+1)
+
+#TODO: comment
+def quickSort(arr, low, high):
+    if low < high:
+        pi = partition(arr, low, high)
+        quickSort(arr, low, pi-1)
+        quickSort(arr, pi+1, high)
+
 # TODO : comment 
 #TODO: debug - something wrong with how urls are added to inv_idx.idx - only one is being returned
 def search(terms):
@@ -63,7 +81,8 @@ def ranking(results, terms):
         for term in terms:
             # print(Crawler.inv_idx.idx[term])
             score += words[term]
-        scored_results += (score, result)
+        scored_results += [(score, result)]
+    quickSort(scored_results, 0, len(scored_results)-1)
     return scored_results
 
 def main():
@@ -86,7 +105,8 @@ def main():
     # url = input("Site to search: ")
     #Load pages into trie
     print("Loading data...")
-    url = "http://www.dataquest.io/blog/web-scraping-tutorial-python/"
+    url = "https://www.dataquest.io/blog/"
+    # url = "http://www.dataquest.io/blog/web-scraping-tutorial-python/"
     # url = "https://stackoverflow.com/questions/15478127/remove-final-character-from-string-python"
     page = Crawler.page_load(url)
     d = Crawler.page_read(page, url, True)
@@ -107,6 +127,8 @@ def main():
                 #results found
                 ranked = ranking(results, search_terms)
                 print(ranked)
+                for i in range(len(ranked)-1, -1, -1):
+                    print(ranked[i][1])
             else:
                 print("No results found")
             search_terms = ""
