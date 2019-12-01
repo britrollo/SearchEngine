@@ -4,35 +4,66 @@ import Crawler
 
 from nltk.stem.wordnet import WordNetLemmatizer # maybe all words should be changed to their stem word?
 
-# ARTICLES = ["a", "an", "the", "this", "these", "those"]
-# PRONOUNS = ["he", "his", "she", "her", "hers", "they", "you", "your", 
-#             "yours", "i", "it", "we", "our", "us", "them", "their", "theirs"]
-# PREPOSITIONS = ["about", "above", "across", "after", "along", "amid", "among", 
-#                 "anti", "around", "as", "at", "before", "behind", "below", "beneath", 
-#                 "beside", "besides", "between", "beyond", "but", "except", "for", 
-#                 "from", "in", "inside", "into", "like", "near", "of", "off", "on",
-#                 "onto", "over", "past", "per", "plus", "regarding", "than", "since"
-#                 "to", "up", "unlike", "via", "with", "without", "not", "and"]
-# STOPWORDS = ARTICLES + PRONOUNS + PREPOSITIONS
+def merge(s1, s2, s):
+    """
+    Modified merge from 8.1 to merge two sorted lists and return the intersection of the inputs sorted
+    Parameters: list string s1  - list to be merged
+                list string s2  - list to be merged
+                list empty s    - list to hold result of merge
+    Return: list string s       - merged and sorted lists
+    """
+    i = 0
+    j = 0
+    n1 = len(s1)
+    n2 = len(s2)
+    while i < n1 and j < n2:
+        if s1[i] < s2[j]:
+            i = i + 1
+        elif s1[i] > s2[j]:
+            j = j + 1
+        else:
+            s = s + [s1[i]]
+            i = i + 1
+            j = j + 1
+    return s
 
+# TODO : comment 
 #TODO: debug - something wrong with how urls are added to inv_idx.idx - only one is being returned
 def search(terms):
     results = []
-    print(terms)
     for x in terms:
         if x not in set(stopwords.words('english')):
-            print(x)
-            print(Crawler.cache.search(x))
             if Crawler.cache.search(x):
                 # word found
-                urls = Crawler.inv_idx.idx[x]
-                if results == []:
-                    results = urls
-                else: #intersection
-                    results = [value for value in results if value in urls] 
+                if x in Crawler.inv_idx.idx.keys():
+                    urls = sorted(Crawler.inv_idx.idx[x])
+                    if results == []:
+                        results = urls
+                    else: #intersection
+                        # To facilitate the intersection computation, 
+                        # each occurrence list should be implemented with a 
+                        # sequence sorted by address or with a dictionary, 
+                        # which allows for a simple intersection algorithm 
+                        # similar to sorted sequence merging (Section 8.1).
+                        results = merge(urls, results, [])
+                else:
+                    return None
             else:
                 return None
     return results
+
+def ranking(results, terms):
+    scored_results = []
+    for result in results:
+        score = 0
+        words = Crawler.inv_idx.rank[result]
+        print(result)
+        print(words)
+        for term in terms:
+            print(Crawler.inv_idx.idx[term])
+            score += words[term]
+        scored_results += (score, result)
+    return scored_results
 
 def main():
     """
@@ -63,8 +94,8 @@ def main():
         search_terms = input("Search: ")
         if search_terms == []:
             continue
-        elif search_terms[0][0] == ":":
-            if search_terms[0][1:] == "quit":
+        elif search_terms[0] == ":":
+            if search_terms[1:] == "quit":
                 print("Goodbye!")
                 return
         else:
@@ -72,10 +103,11 @@ def main():
             results = search(search_terms)
             if results:
                 #results found
-                print(results)
+                ranked = ranking(results, search_terms)
+                print(ranked)
             else:
                 print("No results found")
+            search_terms = ""
                     
-
 if __name__ == '__main__': 
     main() 
