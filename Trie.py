@@ -40,7 +40,7 @@ class CompressedTrie:
         for i in range(len(ptr)):
             if ptr[i]:
                 if ptr[i].isWord:
-                    print((s+ptr[i].data + "\n"))
+                    print((s+ptr[i].data))
                     all_words += [s+ptr[i].data]
                 self.print(ptr[i], s+ptr[i].data, level+1, all_words)
 
@@ -57,13 +57,14 @@ class CompressedTrie:
                 if not ptr.children[index]: #None at would be location
                     ptr.children[index] = self.newNode(key[level:])
                     ptr.children[index].isLeaf = True
+                    # print(key + " - " + ptr.children[index].data)
                     ptr.children[index].isWord = True
                     return
                 else: #Something there
                     comp = self._cmpstr(ptr.children[index].data, key[level:])
                     # print(comp) 
                     if comp == len(ptr.children[index].data):    # Exact match - mark it as word
-                        
+                        # print(key + " -- " + ptr.children[index].data)
                         ptr.children[index].isWord = True
                         return
                     if comp != -1:   #Something there that matches
@@ -84,10 +85,11 @@ class CompressedTrie:
                             cur.children = [None]*26
                             # Split causes new Node to be word
                             cur.children[index2] = self.newNode(node[comp+1:])
-                            cur.children[index2].isWord = True
+                            # print(key + " --- " + cur.children[index2].data)
                             # print("node[cmp+1:] = "+ node[comp+1:])
                             cur.children[index2].children = save_children
                             if self._noneCheck(save_children):
+                                cur.children[index2].isWord = True
                                 cur.children[index2].isLeaf = True
                             else: 
                                 cur.children[index2].isLeaf = False
@@ -312,6 +314,9 @@ def main():
     'van', 'rossum', 'stichting', 'mathematisch', 'centrum', 'netherlands', 'successor', 'abc', 
     'remains', 'principal', 'author', 'contributions', 'executables', 'signed', 'release', 'builder', 
     'openpgp', 'currently', 'reached', 'person', 'keys', 'keyserver']
+
+    keys2 = ["need", "networks", "networkx", "netherlands", "nearly", "nested", "newline", 
+        "next", "new", "needs", "near", "nearest", "necessary", "neural", "neighbors", "needed", "newer"]
     
     output = ["Not present in trie", 
               "Present in trie"] 
@@ -323,14 +328,11 @@ def main():
     for key in keys:
         t.insert(key) 
 
-    # t.insert("bear")
-    # t.insert("bell")
-    # print("-----------------------------------------------------")
-    # for w in x:
-    #     if w not in keys:
-    #         print(w)
-
-    # print(t.root.data)
+    x=[]
+    t.print(t.root, "", 0, x)
+    for w in x:
+        if w not in keys:
+            print(w)
   
     # # # Search for different keys 
     # print("{} ---- {}".format("networks",output[t.search("networks")])) 
@@ -338,8 +340,6 @@ def main():
     # print("{} ---- {}".format("stop",output[t.search("stop")])) 
     # print("{} ---- {}".format("stoop",output[t.search("stoop")])) 
   
-# if __name__ == '__main__': 
-    # t = CompressedTrie() 
-    # print(t._cmpstr("network", "network"))
-    # main() 
+if __name__ == '__main__': 
+    main() 
   
