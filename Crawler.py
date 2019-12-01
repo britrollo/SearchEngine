@@ -80,6 +80,8 @@ def page_read(webpage, url, a):
         h = [x for x in hyperlinks if x not in urls]
         for i in range(min(10, len(h))):
             url = h[i]['href']
+            if url[0] != 'h':
+                continue
             webpage = page_load(url)
             page_read(webpage, url, False)
 
