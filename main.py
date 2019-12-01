@@ -35,19 +35,19 @@ def search(terms):
         if x not in set(stopwords.words('english')):
             if Crawler.cache.search(x):
                 # word found
-                if x in Crawler.inv_idx.idx.keys():
-                    urls = sorted(Crawler.inv_idx.idx[x])
-                    if results == []:
-                        results = urls
-                    else: #intersection
-                        # To facilitate the intersection computation, 
-                        # each occurrence list should be implemented with a 
-                        # sequence sorted by address or with a dictionary, 
-                        # which allows for a simple intersection algorithm 
-                        # similar to sorted sequence merging (Section 8.1).
-                        results = merge(urls, results, [])
-                else:
-                    return None
+                # if x in Crawler.inv_idx.idx.keys():
+                urls = sorted(Crawler.inv_idx.idx[x])
+                if results == []:
+                    results = urls
+                else: #intersection
+                    # To facilitate the intersection computation, 
+                    # each occurrence list should be implemented with a 
+                    # sequence sorted by address or with a dictionary, 
+                    # which allows for a simple intersection algorithm 
+                    # similar to sorted sequence merging (Section 8.1).
+                    results = merge(urls, results, [])
+                # else:
+                #     return None
             else:
                 return None
     return results
@@ -57,10 +57,11 @@ def ranking(results, terms):
     for result in results:
         score = 0
         words = Crawler.inv_idx.rank[result]
-        print(result)
-        print(words)
+        # print(Crawler.inv_idx.rank)
+        # print(result)
+        # print(words)
         for term in terms:
-            print(Crawler.inv_idx.idx[term])
+            # print(Crawler.inv_idx.idx[term])
             score += words[term]
         scored_results += (score, result)
     return scored_results
@@ -86,6 +87,7 @@ def main():
     #Load pages into trie
     print("Loading data...")
     url = "http://www.dataquest.io/blog/web-scraping-tutorial-python/"
+    # url = "https://stackoverflow.com/questions/15478127/remove-final-character-from-string-python"
     page = Crawler.page_load(url)
     d = Crawler.page_read(page, url, True)
 
