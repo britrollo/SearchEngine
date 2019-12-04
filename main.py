@@ -62,6 +62,7 @@ def search(terms):
     """
     results = []
     for x in terms:
+        x = x.lower()
         if Crawler.cache.search(x):
             # word found
             urls = sorted(Crawler.inv_idx.idx[x])
@@ -88,6 +89,7 @@ def ranking(results, terms):
         score = 0
         words = Crawler.inv_idx.rank[result]
         for term in terms:
+            term = term.lower()
             score += words[term]
         scored_results += [(score, result)]
     quickSort(scored_results, 0, len(scored_results)-1)
@@ -136,7 +138,7 @@ def main():
                 return
         else:
             search_terms = Crawler.remove_punc(search_terms)
-            
+
             excluded_words = []
             for w in search_terms:
                 if not Crawler.str_check(w):
@@ -147,7 +149,6 @@ def main():
             if results:
                 #results found
                 ranked = ranking(results, search_terms)
-                print(ranked)
                 for i in range(len(ranked)-1, -1, -1):
                     print(ranked[i][1])
             else:
