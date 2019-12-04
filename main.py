@@ -2,8 +2,6 @@ from Trie import CompressedTrie
 from nltk.corpus import stopwords
 import Crawler
 
-from nltk.stem.wordnet import WordNetLemmatizer # maybe all words should be changed to their stem word?
-
 def merge(s1, s2, s):
     """
     Modified merge from 8.1 to merge two sorted lists and return the intersection of the inputs sorted
@@ -64,21 +62,18 @@ def search(terms):
     """
     results = []
     for x in terms:
-        if x not in set(stopwords.words('english')):
-            if Crawler.cache.search(x):
-                # word found
-                urls = sorted(Crawler.inv_idx.idx[x])
-                if results == []:
-                    results = urls
-                else: #intersection
-                    # To facilitate the intersection computation, 
-                    # each occurrence list should be implemented with a 
-                    # sequence sorted by address or with a dictionary, 
-                    # which allows for a simple intersection algorithm 
-                    # similar to sorted sequence merging (Section 8.1).
-                    results = merge(urls, results, [])
-            else:
-                return None
+        if Crawler.cache.search(x):
+            # word found
+            urls = sorted(Crawler.inv_idx.idx[x])
+            if results == []:
+                results = urls
+            else: #intersection
+                # To facilitate the intersection computation, 
+                # each occurrence list should be implemented with a 
+                # sequence sorted by address or with a dictionary, 
+                # which allows for a simple intersection algorithm 
+                # similar to sorted sequence merging (Section 8.1).
+                results = merge(urls, results, [])
     return results
 
 def ranking(results, terms):
@@ -92,11 +87,7 @@ def ranking(results, terms):
     for result in results:
         score = 0
         words = Crawler.inv_idx.rank[result]
-        # print(Crawler.inv_idx.rank)
-        # print(result)
-        # print(words)
         for term in terms:
-            # print(Crawler.inv_idx.idx[term])
             score += words[term]
         scored_results += [(score, result)]
     quickSort(scored_results, 0, len(scored_results)-1)
@@ -132,7 +123,7 @@ def main():
     print(":menu")
     while True:
         search_terms = input("Search: ")
-        # TODO: IS THERE AN ISSUE IF A NUMBER IS INPUTTED????
+        # TODO: IS THERE AN ISSUE IF A NUMBER IS INPUTTED???? 
         if search_terms == []:
             continue
         elif search_terms[0] == ":":
@@ -145,6 +136,13 @@ def main():
                 return
         else:
             search_terms = Crawler.remove_punc(search_terms)
+            
+            excluded_words = []
+            for w in search_terms:
+                if not Crawler.str_check(w):
+                    excluded_words.append(w)
+                    search_terms.remove(w)
+            
             results = search(search_terms)
             if results:
                 #results found
@@ -154,6 +152,9 @@ def main():
                     print(ranked[i][1])
             else:
                 print("No results found")
+            
+            if excluded_words != []:
+                print("Words excluded from search: " + str(excluded_words))
             search_terms = ""
                     
 if __name__ == '__main__': 
