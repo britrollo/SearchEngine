@@ -114,13 +114,3 @@ def remove_punc(txt):
         words[i] = words[i].replace('_', '')
         words[i] = words[i].replace('-', '')
     return words
-
-
-if __name__ == '__main__': 
-    # print("in" in set(stopwords.words('english')))
-    url = "http://www.dataquest.io/blog/web-scraping-tutorial-python/"
-    webpage = page_load(url)
-    page_read(webpage, url, False)
-
-    # cache.print(cache.root, "", 0)
-    # print(cache.root)

@@ -38,13 +38,3 @@ class InvertedIndex:
         else:
             self.rank[url] = {}
             self.rank[url][w] = c
-
-def main():
-    i = InvertedIndex()
-
-    i.add_word("hello", "https://www.dataquest.io/blog/topics/student-stories", 1)
-    i.add_url("hello", "https://www.dataquest.io/blog/topics/student-stories", 1)
-
-if __name__ == "__main__":
-    main()
-    
