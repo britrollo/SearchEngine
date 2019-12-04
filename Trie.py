@@ -177,10 +177,13 @@ def main():
         t.insert(key) 
   
     # # # Search for different keys 
-    # print("{} ---- {}".format("begins",output[t.search("begins")])) 
-    # print("{} ---- {}".format("network",output[t.search("network")])) 
-    # print("{} ---- {}".format("stop",output[t.search("stop")])) 
-    # print("{} ---- {}".format("stoop",output[t.search("stoop")])) 
+    print("{} ---- {}".format("bear",output[t.search("bear")])) 
+    print("{} ---- {}".format("bit",output[t.search("bit")])) 
+    print("{} ---- {}".format("stop",output[t.search("stop")])) 
+    print("{} ---- {}".format("stoop",output[t.search("stoop")])) 
+
+    x = []
+    t.print(t.root, "", 0, x)
   
 if __name__ == '__main__': 
     main() 
