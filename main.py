@@ -75,6 +75,8 @@ def search(terms):
                 # which allows for a simple intersection algorithm 
                 # similar to sorted sequence merging (Section 8.1).
                 results = merge(urls, results, [])
+        else:
+            return None
     return results
 
 def ranking(results, terms):
@@ -112,20 +114,26 @@ def main():
         where w is word and c is occurence count for the page
     6. Return results
     """
+    fp = open("output.txt", "w+")
     #Load pages into trie
     print("Loading data...")
+    fp.write("Loading data..." + "\n")
     url = "https://www.dataquest.io/blog/"
     page = Crawler.page_load(url)
     d = Crawler.page_read(page, url, True)
 
     #Loop user searching
     print("You can begin searching now. When done please exit using the command")
+    fp.write("You can begin searching now. When done please exit using the command"+ "\n")
     print(":quit")
+    fp.write(":quit"+ "\n")
     print("for more options type ")
+    fp.write("for more options type "+ "\n")
     print(":menu")
+    fp.write(":menu"+ "\n")
     while True:
         search_terms = input("Search: ")
-        # TODO: IS THERE AN ISSUE IF A NUMBER IS INPUTTED???? 
+        fp.write("Search: " + search_terms)
         if search_terms == []:
             continue
         elif search_terms[0] == ":":
@@ -133,8 +141,13 @@ def main():
                 print("Menu:")
                 print(":menu - to show menu")
                 print(":quit - to end session")
+                fp.write("Menu:" + "\n")
+                fp.write(":menu - to show menu" + "\n")
+                fp.write(":quit - to end session" + "\n")
             if search_terms[1:] == "quit":
                 print("Goodbye!")
+                fp.write("Goodbye!" + "\n")
+                fp.close()
                 return
         else:
             search_terms = Crawler.remove_punc(search_terms)
@@ -151,11 +164,14 @@ def main():
                 ranked = ranking(results, search_terms)
                 for i in range(len(ranked)-1, -1, -1):
                     print(ranked[i][1])
+                    fp.write(ranked[i][1])
             else:
                 print("No results found")
+                fp.write("No results found" + "\n")
             
             if excluded_words != []:
                 print("Words excluded from search: " + str(excluded_words))
+                fp.write("Words excluded from search: " + str(excluded_words) + "\n")
             search_terms = ""
                     
 if __name__ == '__main__': 
