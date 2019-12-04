@@ -15,16 +15,17 @@ def page_load(url):
     """
     Loads all data from webpage given the url 
     Parameters: string url - webpage url
-    Return: string data - webpage HTML data
+    Return:     string data - webpage HTML data
     """
     r = requests.get(url)
     data = r.content
     return data
 
-# TODO : comment 
 def strip_accents(text):
     """
     Replace accented letters in word with equivalent for processing in trie
+    Parameters: string text - text to be processed
+    Return:     string with accented letters replaced with equivalent
     """
     try:
         text = unicode(text, 'utf-8')
@@ -36,10 +37,12 @@ def strip_accents(text):
            .decode("utf-8")
 
     return str(text)
-
-# TODO : comment 
+ 
 def str_check(w):
     """
+    Check word is not a stopword, a number, or contains a number
+    Parameters: string w -  word to check
+    Return:     boolean
     """
     return w not in set(stopwords.words('english')) and \
             not w.isnumeric() and \
@@ -103,7 +106,7 @@ def remove_punc(txt):
     """
     Removes punctuation from string, separates words by whitespaces into list
     Parameters: string txt  - string of words
-    Return: list[string] - list of strings from txt
+    Return:     list[string] - list of strings from txt
     """
     tokenizer = RegexpTokenizer(r'\w+')
     return tokenizer.tokenize(txt)

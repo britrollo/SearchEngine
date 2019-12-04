@@ -27,8 +27,13 @@ def merge(s1, s2, s):
             j = j + 1
     return s
 
-#TODO: comment
 def partition(arr, low, high):
+    """
+    Paritioning for quickSort
+    Parameters: list arr
+                int low
+                int high
+    """
     i = (low -1)
     pivot = arr[high][0]
     for j in range(low, high):
@@ -38,22 +43,30 @@ def partition(arr, low, high):
     arr[i+1],arr[high] = arr[high],arr[i+1]
     return (i+1)
 
-#TODO: comment
 def quickSort(arr, low, high):
+    """
+    QuickSort algoritm
+    Parameters: list arr    - elements to be sorted
+                int low     - low index for paritioning
+                int high    - high index for paritioning
+    Return: sorted arr
+    """
     if low < high:
         pi = partition(arr, low, high)
         quickSort(arr, low, pi-1)
         quickSort(arr, pi+1, high)
 
-# TODO : comment 
-#TODO: debug - something wrong with how urls are added to inv_idx.idx - only one is being returned
 def search(terms):
+    """
+    Search for results for inputted term or terms
+    Parameter: list string terms - list of terms to be searched for
+    Result:     list of urls with the terms sorted
+    """
     results = []
     for x in terms:
         if x not in set(stopwords.words('english')):
             if Crawler.cache.search(x):
                 # word found
-                # if x in Crawler.inv_idx.idx.keys():
                 urls = sorted(Crawler.inv_idx.idx[x])
                 if results == []:
                     results = urls
@@ -64,13 +77,17 @@ def search(terms):
                     # which allows for a simple intersection algorithm 
                     # similar to sorted sequence merging (Section 8.1).
                     results = merge(urls, results, [])
-                # else:
-                #     return None
             else:
                 return None
     return results
 
 def ranking(results, terms):
+    """
+    Ranking for search results
+    Parameters: list string results - urls returned from search()
+                list string terms   - words searched for
+    Return:     results sorted by rank in increasing order
+    """
     scored_results = []
     for result in results:
         score = 0
@@ -87,7 +104,7 @@ def ranking(results, terms):
 
 def main():
     """
-    1. User inputs website
+    1. Loads webpage from original url
     2. Webpage and 5-10 connected webpages are loaded
     3. Webpages are processed and added to trie and inverted index
         - Check if w in index
@@ -102,21 +119,27 @@ def main():
         where w is word and c is occurence count for the page
     6. Return results
     """
-    # url = input("Site to search: ")
     #Load pages into trie
     print("Loading data...")
     url = "https://www.dataquest.io/blog/"
-    # url = "http://www.dataquest.io/blog/web-scraping-tutorial-python/"
-    # url = "https://stackoverflow.com/questions/15478127/remove-final-character-from-string-python"
     page = Crawler.page_load(url)
     d = Crawler.page_read(page, url, True)
 
     #Loop user searching
+    print("You can begin searching now. When done please exit using the command")
+    print(":quit")
+    print("for more options type ")
+    print(":menu")
     while True:
         search_terms = input("Search: ")
+        # TODO: IS THERE AN ISSUE IF A NUMBER IS INPUTTED????
         if search_terms == []:
             continue
         elif search_terms[0] == ":":
+            if search_terms[1:] == "menu":
+                print("Menu:")
+                print(":menu - to show menu")
+                print(":quit - to end session")
             if search_terms[1:] == "quit":
                 print("Goodbye!")
                 return
