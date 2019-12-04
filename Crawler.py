@@ -109,7 +109,11 @@ def remove_punc(txt):
     Return:     list[string] - list of strings from txt
     """
     tokenizer = RegexpTokenizer(r'\w+')
-    return tokenizer.tokenize(txt)
+    words = tokenizer.tokenize(txt)
+    for i in range(len(words)):
+        words[i] = words[i].replace('_', '')
+        words[i] = words[i].replace('-', '')
+    return words
 
 
 if __name__ == '__main__': 
