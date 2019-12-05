@@ -99,20 +99,20 @@ def ranking(results, terms):
 
 def main():
     """
-    1. Loads webpage from original url
-    2. Webpage and 5-10 connected webpages are loaded
-    3. Webpages are processed and added to trie and inverted index
+    1. Loads webpages from ./webpages by reading filenames from input.txt
+    2. Webpages are processed and added to trie and inverted index
         - Check if w in index
         - If not add w to index with url and add w to trie
         - If in index add url to list of w
             - If in index and url in list, update ranking dictionary
-    4. User inputs search term or terms
+    3. User inputs search term or terms
         - More than one term? - complete search for both and return intersection of occurence lists
             - Combine occurence counts for rank
-    5. Rank results
-        - Maybe keep dictionary with (url, wd) where wd is a dictionary of (w, c) 
+    4. Rank results
+        - Keep dictionary with (url, wd) where wd is a dictionary of (w, c) 
         where w is word and c is occurence count for the page
-    6. Return results
+    5. Return results
+    6. Menu and options available
     """
     fp = open("output.txt", "w+")
     #Load pages into trie
@@ -142,7 +142,7 @@ def main():
     fp.write(":menu"+ "\n")
     while True:
         search_terms = input("Search: ")
-        fp.write("Search: " + search_terms)
+        fp.write("Search: " + search_terms + "\n")
         if not search_terms or search_terms == [] or search_terms == "" or search_terms == " ":
             print("Please enter a non-empty search.")
             fp.write("Please enter a non-empty search.\n")
@@ -190,7 +190,7 @@ def main():
                 ranked = ranking(results, search_terms)
                 for i in range(len(ranked)-1, -1, -1):
                     print(ranked[i][1])
-                    fp.write(ranked[i][1])
+                    fp.write(ranked[i][1] + "\n")
             else:
                 print("No results found")
                 fp.write("No results found" + "\n")
