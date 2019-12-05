@@ -35,7 +35,7 @@ Wait for data to load. Begin entering search terms when this appears:
 ~~~
 Search:
 ~~~
-For options menu enter:
+For options menu:
 ~~~
 Search: :menu
 ~~~
