@@ -134,17 +134,34 @@ def main():
     while True:
         search_terms = input("Search: ")
         fp.write("Search: " + search_terms)
-        if search_terms == []:
+        if not search_terms or search_terms == [] or search_terms == "" or search_terms == " ":
+            print("Please enter a non-empty search.")
+            fp.write("Please enter a non-empty search.\n")
             continue
         elif search_terms[0] == ":":
-            if search_terms[1:] == "menu":
+            if search_terms[1:].lower() == "urls":
+                urls = Crawler.inv_idx.rank.keys()
+                print("Count: " + str(len(urls)))
+                str_urls = ", ".join(urls)
+                print(str_urls)
+                fp.write("Count: " + str(len(urls))+ "\n")
+                fp.write(str_urls + "\n")
+            if search_terms[1:].lower() == "add":
+                page = Crawler.page_load(Crawler.unused_urls[0])
+                Crawler.unused_urls = Crawler.unused_urls[:-1]
+                d = Crawler.page_read(page, Crawler.unused_urls[0], True)
+            if search_terms[1:].lower() == "menu":
                 print("Menu:")
                 print(":menu - to show menu")
+                print(":add  - add new webpages to search memory")
+                print(":urls - views urls available in memory")
                 print(":quit - to end session")
                 fp.write("Menu:" + "\n")
                 fp.write(":menu - to show menu" + "\n")
+                fp.write(":add  - add new urls to search memory" + "\n")
+                fp.write(":urls - views urls available in memory" + "\n")
                 fp.write(":quit - to end session" + "\n")
-            if search_terms[1:] == "quit":
+            if search_terms[1:].lower() == "quit":
                 print("Goodbye!")
                 fp.write("Goodbye!" + "\n")
                 fp.close()
