@@ -11,6 +11,8 @@ Data Structures used are a compressed trie for storing and lookup of key words f
 
 Algorithms used are a modified version of merge (Section 8.1) to find the intersection of two sorted lists of search results and quicksort to sort the rankings of the resulting webpages of a sort.
 
+Search results are ranked in decreasing order by an acculumation of the counts of each search term on each page. For example, if the inputted search is for 'cat' and 'dog', page x, with the respective counts of 10 and 3, will rank higher than page y, which has the respective counts of 9 and 1. In addition, words used in titles were given a slightly higher count than if the word was just in the body of the webpage.
+
 ---
 ## Dependencies:
 * nltk
@@ -24,4 +26,28 @@ Algorithms used are a modified version of merge (Section 8.1) to find the inters
     2. pip install beautifulsoup4  
     3. pip install requests
 
-### 2. 
+### 2. Run project
+In project directory (../SearchEngine):
+~~~
+python main.py
+~~~
+Wait for data to load. Begin entering search terms when this appears:
+~~~
+Search:
+~~~
+For options menu enter:
+~~~
+Search: :menu
+~~~
+To add more pages to search memory:
+~~~
+Search: :add
+~~~
+To view all urls in memory:
+~~~
+Search: :urls
+~~~
+To end session:
+~~~
+Search: :quit
+~~~
