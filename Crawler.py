@@ -8,6 +8,8 @@ import unicodedata
 
 global cache
 global inv_idx
+global unused_urls
+unused_urls = []
 cache = CompressedTrie()
 inv_idx = InvertedIndex()
 
@@ -54,38 +56,45 @@ def page_read(webpage, url, a):
     Parameters: webpage - data loaded from webpage
     Return: None - all data is loaded into Trie
     """
-    soup = BeautifulSoup(webpage, 'html.parser')
+    soup = BeautifulSoup(webpage, 'html.parser', from_encoding="iso-8859-1")
 
-    # p tags 
-    p_tags = soup.find_all('p')
-    for p in p_tags:
-        txt = p.get_text()
-        txt = remove_punc(txt)
-        for w in txt:
-            w = strip_accents(w).lower()
-            if str_check(w):
-                load_into_memory(w, url, 1)
+    urls = inv_idx.rank.keys()
+    if urls != None and urls != []:
+        if url not in urls:
+            # p tags 
+            p_tags = soup.find_all('p')
+            for p in p_tags:
+                txt = p.get_text()
+                txt = remove_punc(txt)
+                for w in txt:
+                    w = strip_accents(w).lower()
+                    if str_check(w):
+                        load_into_memory(w, url, 1)
 
-    # title tags
-    title_tags = soup.find_all('title')
-    for title in title_tags:
-        txt = title.get_text()
-        txt = remove_punc(txt)
-        for w in txt:
-            w = strip_accents(w).lower()
-            if str_check(w):
-                load_into_memory(w, url, 3)
+            # title tags
+            title_tags = soup.find_all('title')
+            for title in title_tags:
+                txt = title.get_text()
+                txt = remove_punc(txt)
+                for w in txt:
+                    w = strip_accents(w).lower()
+                    if str_check(w):
+                        load_into_memory(w, url, 3)
 
     # Get all hyperlinks - a tags
-    if a:
-        urls = inv_idx.rank.keys()
-        hyperlinks = soup.find_all('a', href=True)
-        h = [x for x in hyperlinks if x not in urls]
-        for i in range(min(10, len(h))):
-            url = h[i]['href']
+    hyperlinks = soup.find_all('a', href=True)
+    h = [x['href'] for x in hyperlinks if x['href'] not in urls]
+    count_added = 0
+    for i in range(len(h)):
+        url = h[i]
+        if count_added >= 10 or not a:
+            unused_urls.append(url)
+        else:
             if url[0] != 'h':
                 continue
             webpage = page_load(url)
+            unused_urls.append(url)
+            count_added = count_added+1
             page_read(webpage, url, False)
 
 def load_into_memory(w, url, c):
