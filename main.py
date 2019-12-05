@@ -118,9 +118,18 @@ def main():
     #Load pages into trie
     print("Loading data...")
     fp.write("Loading data..." + "\n")
-    url = "https://www.dataquest.io/blog/"
-    page = Crawler.page_load(url)
-    d = Crawler.page_read(page, url, True)
+    # url = "https://www.dataquest.io/blog/"
+    folder = "./webpages/"
+    input_file = "./webpages/input.txt"
+    wp = open(input_file, "r")
+    lines = wp.readlines()
+    for line in lines:
+        line = line.split()
+        filename = line[0]
+        url = line[1]
+        # page = Crawler.page_load(url)
+        page = open(folder+filename, "r")
+        Crawler.page_read(page, url, False)
 
     #Loop user searching
     print("You can begin searching now. When done please exit using the command")
