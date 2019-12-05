@@ -1,0 +1,3662 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+		<!--[if lt IE 9]>
+	<script src="https://www.dataquest.io/wp-content/themes/ignition/js/html5/dist/html5shiv.js"></script>
+	<script src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->
+	<!--[if IE 8]>
+	<link rel="stylesheet" type="text/css" href="https://www.dataquest.io/wp-content/themes/ignition/css/ie8.css"/>
+	<![endif]-->
+	<!--[if IE 7]>
+	<link rel="stylesheet" type="text/css" href="https://www.dataquest.io/wp-content/themes/ignition/css/ie7.css"/>
+	<![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<meta charset="UTF-8">
+	
+			<link rel="stylesheet" href="https://use.typekit.net/nmj4kuc.css">
+
+
+			<title>SQL Joins Tutorial: Working with Databases &ndash; Dataquest</title>
+
+<!-- This site is optimized with the Yoast SEO Premium plugin v12.5.1 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Learn how to master joins in the SQL joins tutorial. Learn to use inner, left, right, and outer joins while analyzing CIA factbook data."/>
+<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1"/>
+<link rel="canonical" href="https://www.dataquest.io/blog/sql-joins-tutorial/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="SQL Joins Tutorial: Working with Databases &ndash; Dataquest" />
+<meta property="og:description" content="Learn how to master joins in the SQL joins tutorial. Learn to use inner, left, right, and outer joins while analyzing CIA factbook data." />
+<meta property="og:url" content="https://www.dataquest.io/blog/sql-joins-tutorial/" />
+<meta property="og:site_name" content="Dataquest" />
+<meta property="article:publisher" content="https://www.facebook.com/dataquestio" />
+<meta property="article:tag" content="cia" />
+<meta property="article:tag" content="databases" />
+<meta property="article:tag" content="factbook" />
+<meta property="article:tag" content="inner join" />
+<meta property="article:tag" content="learning sql" />
+<meta property="article:tag" content="left join" />
+<meta property="article:tag" content="outer join" />
+<meta property="article:tag" content="right join" />
+<meta property="article:tag" content="SQL" />
+<meta property="article:tag" content="sql joins" />
+<meta property="article:tag" content="sql tutorial" />
+<meta property="article:tag" content="SQLite" />
+<meta property="article:tag" content="tutorial" />
+<meta property="article:section" content="Data Science Tutorials" />
+<meta property="article:published_time" content="2019-11-18T14:47:06-08:00" />
+<meta property="og:image" content="https://www.dataquest.io/wp-content/uploads/2019/10/sql-database-schema-1895779_1280.png" />
+<meta property="og:image:secure_url" content="https://www.dataquest.io/wp-content/uploads/2019/10/sql-database-schema-1895779_1280.png" />
+<meta property="og:image:width" content="1280" />
+<meta property="og:image:height" content="1118" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:description" content="Learn how to master joins in the SQL joins tutorial. Learn to use inner, left, right, and outer joins while analyzing CIA factbook data." />
+<meta name="twitter:title" content="SQL Joins Tutorial: Working with Databases &ndash; Dataquest" />
+<meta name="twitter:site" content="@dataquestio" />
+<meta name="twitter:image" content="https://www.dataquest.io/wp-content/uploads/2019/10/sql-database-schema-1895779_1280.png" />
+<meta name="twitter:creator" content="@dataquestio" />
+<script type='application/ld+json' class='yoast-schema-graph yoast-schema-graph--main'>{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.dataquest.io/#organization","name":"Dataquest","url":"https://www.dataquest.io/","sameAs":["https://www.facebook.com/dataquestio","https://www.linkedin.com/company/dataquest-io","https://twitter.com/dataquestio"],"logo":{"@type":"ImageObject","@id":"https://www.dataquest.io/#logo","url":"https://www.dataquest.io/wp-content/uploads/2019/01/Logo-On-Light-BLUE.png","width":2001,"height":427,"caption":"Dataquest"},"image":{"@id":"https://www.dataquest.io/#logo"}},{"@type":"WebSite","@id":"https://www.dataquest.io/#website","url":"https://www.dataquest.io/","name":"Dataquest","publisher":{"@id":"https://www.dataquest.io/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://www.dataquest.io/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"ImageObject","@id":"https://www.dataquest.io/blog/sql-joins-tutorial/#primaryimage","url":"https://www.dataquest.io/wp-content/uploads/2019/10/sql-database-schema-1895779_1280.png","width":1280,"height":1118,"caption":"SQL joins schema digram"},{"@type":"WebPage","@id":"https://www.dataquest.io/blog/sql-joins-tutorial/#webpage","url":"https://www.dataquest.io/blog/sql-joins-tutorial/","inLanguage":"en-US","name":"SQL Joins Tutorial: Working with Databases &ndash; Dataquest","isPartOf":{"@id":"https://www.dataquest.io/#website"},"primaryImageOfPage":{"@id":"https://www.dataquest.io/blog/sql-joins-tutorial/#primaryimage"},"datePublished":"2019-11-18T14:47:06-08:00","dateModified":"2019-11-18T14:47:06-08:00","description":"Learn how to master joins in the SQL joins tutorial. Learn to use inner, left, right, and outer joins while analyzing CIA factbook data."},{"@type":"Article","@id":"https://www.dataquest.io/blog/sql-joins-tutorial/#article","isPartOf":{"@id":"https://www.dataquest.io/blog/sql-joins-tutorial/#webpage"},"author":{"@id":"https://www.dataquest.io/#/schema/person/54c1172c792879ccebbb1aecafa3e133"},"headline":"SQL Joins Tutorial: Working with Databases","datePublished":"2019-11-18T14:47:06-08:00","dateModified":"2019-11-18T14:47:06-08:00","commentCount":0,"mainEntityOfPage":{"@id":"https://www.dataquest.io/blog/sql-joins-tutorial/#webpage"},"publisher":{"@id":"https://www.dataquest.io/#organization"},"image":{"@id":"https://www.dataquest.io/blog/sql-joins-tutorial/#primaryimage"},"keywords":"cia,databases,factbook,inner join,learning sql,left join,outer join,right join,SQL,sql joins,sql tutorial,SQLite,tutorial","articleSection":"Data Science Tutorials"},{"@type":["Person"],"@id":"https://www.dataquest.io/#/schema/person/54c1172c792879ccebbb1aecafa3e133","name":"Josh Devlin","image":{"@type":"ImageObject","@id":"https://www.dataquest.io/#authorlogo","url":"https://secure.gravatar.com/avatar/488062fe3e2d6bbf1da752fa6d89c37f?s=96&d=identicon&r=g","caption":"Josh Devlin"},"description":"Data Scientist at Dataquest.io. Loves Data and Aussie Rules Football. Australian living in Texas.","sameAs":[]}]}</script>
+<!-- / Yoast SEO Premium plugin. -->
+
+<link rel='dns-prefetch' href='//s.w.org' />
+<link rel="alternate" type="application/rss+xml" title="Dataquest &raquo; SQL Joins Tutorial: Working with Databases Comments Feed" href="https://www.dataquest.io/blog/sql-joins-tutorial/feed/" />
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.dataquest.io\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.3"}};
+			!function(e,a,t){var r,n,o,i,p=a.createElement("canvas"),s=p.getContext&&p.getContext("2d");function c(e,t){var a=String.fromCharCode;s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,e),0,0);var r=p.toDataURL();return s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,t),0,0),r===p.toDataURL()}function l(e){if(!s||!s.fillText)return!1;switch(s.textBaseline="top",s.font="600 32px Arial",e){case"flag":return!c([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])&&(!c([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!c([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]));case"emoji":return!c([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340])}return!1}function d(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(i=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},o=0;o<i.length;o++)t.supports[i[o]]=l(i[o]),t.supports.everything=t.supports.everything&&t.supports[i[o]],"flag"!==i[o]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[i[o]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(r=t.source||{}).concatemoji?d(r.concatemoji):r.wpemoji&&r.twemoji&&(d(r.twemoji),d(r.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel='stylesheet' id='wp-block-library-css'  href='https://www.dataquest.io/wp-includes/css/dist/block-library/style.min.css?ver=5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='searchandfilter-css'  href='https://www.dataquest.io/wp-content/plugins/search-filter/style.css?ver=1' type='text/css' media='all' />
+<link rel='stylesheet' id='bodhi-svgs-attachment-css'  href='https://www.dataquest.io/wp-content/plugins/svg-support/css/svgs-attachment.css?ver=5.3' type='text/css' media='all' />
+<link rel='stylesheet' id='tve_style_family_tve_flt-css'  href='https://www.dataquest.io/wp-content/plugins/thrive-visual-editor/editor/css/thrive_flat.css?ver=2.4.5.1' type='text/css' media='all' />
+<link rel='stylesheet' id='tve_leads_forms-css'  href='//www.dataquest.io/wp-content/plugins/thrive-leads/editor-layouts/css/frontend.css?ver=2.2.6.1' type='text/css' media='all' />
+<link rel='stylesheet' id='l2h_style-css'  href='https://www.dataquest.io/wp-content/plugins/latex2html/inc/css/latex.min.css?ver=2.3.7' type='text/css' media='screen, print' />
+<link rel='stylesheet' id='l2h_print_style-css'  href='https://www.dataquest.io/wp-content/plugins/latex2html/inc/css/print.min.css?ver=2.3.7' type='text/css' media='print' />
+<link rel='stylesheet' id='jquery-data-tables-css'  href='https://www.dataquest.io/wp-content/plugins/posts-data-table/assets/js/datatables/datatables.min.css?ver=1.10.18' type='text/css' media='all' />
+<link rel='stylesheet' id='posts-data-table-css'  href='https://www.dataquest.io/wp-content/plugins/posts-data-table/assets/css/posts-data-table.min.css?ver=1.3' type='text/css' media='all' />
+<link rel='stylesheet' id='ignition-style-css'  href='https://www.dataquest.io/wp-content/themes/ignition-child/style.css?ver=1.401.2.1550684985' type='text/css' media='all' />
+<link rel='stylesheet' id='thrive-reset-css'  href='https://www.dataquest.io/wp-content/themes/ignition/css/reset.css' type='text/css' media='all' />
+<link rel='stylesheet' id='thrive-main-style-css'  href='https://www.dataquest.io/wp-content/themes/ignition/css/main_navy.css?ver=2014123' type='text/css' media='all' />
+<link rel='stylesheet' id='chld_thm_cfg_separate-css'  href='https://www.dataquest.io/wp-content/themes/ignition-child/ctc-style.css?ver=1.401.2.1550684985' type='text/css' media='all' />
+<link rel='stylesheet' id='thrive-apprentice-style-css'  href='https://www.dataquest.io/wp-content/themes/ignition/appr/css/apprentice_green.css?ver=20120208' type='text/css' media='all' />
+<link rel='stylesheet' id='prism-theme-css'  href='https://www.dataquest.io/wp-content/plugins/ank-prism-for-wp/out/prism-css.min.css?ver=1550607458' type='text/css' media='all' />
+<script type='text/javascript'>
+/* <![CDATA[ */
+var THO_Head = {"variations":[],"post_id":"21484","element_tag":"thrive_headline","woo_tag":"tho_woo"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-content/plugins/thrive-headline-optimizer/frontend/js/header.min.js?ver=1.2.0'></script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-includes/js/jquery/jquery.js'></script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-includes/js/jquery/jquery-migrate.min.js'></script>
+<link rel='https://api.w.org/' href='https://www.dataquest.io/wp-json/' />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.dataquest.io/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.dataquest.io/wp-includes/wlwmanifest.xml" /> 
+<meta name="generator" content="WordPress 5.3" />
+<link rel='shortlink' href='https://www.dataquest.io/?p=21484' />
+<link rel="alternate" type="application/json+oembed" href="https://www.dataquest.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.dataquest.io%2Fblog%2Fsql-joins-tutorial%2F" />
+<link rel="alternate" type="text/xml+oembed" href="https://www.dataquest.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.dataquest.io%2Fblog%2Fsql-joins-tutorial%2F&#038;format=xml" />
+<style type="text/css" id="tve_global_variables">:root{--tcb-color-0:rgb(35, 42, 61);--tcb-color-1:rgb(132, 132, 157);--tcb-color-2:rgb(77, 127, 223);--tcb-color-3:rgb(97, 209, 153);--tcb-color-4:rgb(0, 0, 0);--tcb-color-5:rgb(0, 0, 0);--tcb-color-6:rgb(0, 0, 0);--tcb-color-7:rgb(212, 212, 212);--tcb-color-8:rgb(137, 138, 142);--tcb-color-9:rgb(242, 243, 247);--tcb-color-10:rgba(35, 42, 61, 0.77);--tcb-color-11:rgb(97, 209, 153);--tcb-color-12:rgb(255, 255, 255);--tcb-color-13:rgb(35, 42, 61);--tcb-gradient-0:linear-gradient(90deg, rgb(97, 209, 153) 0%, rgb(78, 126, 222) 98%);}</style>	<script>
+		/************* Helper functions ******************/
+		function isInArray(value, array) {
+		  return array.indexOf(value) > -1;
+		}
+		function getHostFromUrl(url) {
+			var a=document.createElement('a');
+			a.href=url;
+			return a.hostname;
+		}
+		function getUrlVar(key){
+			var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search); 
+			return result && unescape(result[1]) || ""; 
+		}
+		/************* End of Helper Functions ******************/
+		
+		
+		/******************** Cookie helper functions ************************/
+		function checkCookieExists(cookie_name) {
+			return document.cookie.indexOf(cookie_name + '=') !== -1;
+		}
+		function setCookie(name,value,domain,days) {
+			var expires = "";
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime() + (days*24*60*60*1000));
+				expires = "; expires=" + date.toUTCString();
+			}
+			document.cookie = name + "=" + (value || "")  + expires +  ";domain=" + domain + "; path=/";
+		}
+		/******************** End Of Cookie helper functions ******************/
+		
+		function setRefererUrlCookie() {
+			var cookie_domain = '.dataquest.io'
+			var internal_hosts =  ['www.dataquest.io', 'dataquest.io', ]
+
+			/* Set Landing page cookie if it doesnot exist */
+			if (!checkCookieExists('dataquest-cac-landing-page')) {
+				setCookie('dataquest-cac-landing-page', window.location.pathname, cookie_domain, 7)
+			}
+			
+			var referrer = document.referrer
+			if (!referrer) {
+				return
+			}
+			host = getHostFromUrl(referrer)
+			
+			/* If referrer is not coming from dataquest, set it in cookie and override landing_page cookie */
+			if (!isInArray(host, internal_hosts)) {
+				setCookie('dataquest-cac-referer-url', referrer, cookie_domain, 365)
+				setCookie('dataquest-cac-landing-page', window.location.pathname, cookie_domain, 365)
+			}
+		}
+
+		function setUTMCodesCookies() {
+			var utm_codes = ['utm_source','utm_campaign','utm_content','utm_term','utm_medium']
+			var cookie_prefix = 'dataquest-cac-'
+			var cookie_domain = '.dataquest.io'
+			
+			for (code in utm_codes) {
+				var utm_code = utm_codes[code]
+				var code_value = getUrlVar(utm_code)
+				var cookie_name = cookie_prefix + utm_code.replace('_', '-')
+				
+				if (code_value) {
+					setCookie(cookie_name, code_value, cookie_domain, 365)
+				}
+			}
+		}
+									
+		
+		function setLandingPageLastTouchCookie() {
+			var cookie_domain = '.dataquest.io'
+			setCookie('dataquest-cac-landing-page-last-touch', window.location.pathname, cookie_domain, 365)
+
+		}
+		
+		setUTMCodesCookies()
+		setRefererUrlCookie()
+		setLandingPageLastTouchCookie()
+
+	</script>
+<style>
+.latex_thm, .latex_lem, .latex_cor, .latex_defn, .latex_prop, .latex_rem{
+  margin:0;padding:5px;
+  background: lightcyan;
+  border: solid 3px green;
+  -moz-border-radius: 1.0em;
+  -webkit-border-radius: 7px;
+  box-shadow: 0 0 0 green;
+}
+.latex_em{
+  font-style: italic;
+}
+.bibtex_title{
+  font-weight:bold;
+  color: #004b33;
+}
+a.bibtex_title{
+  text-decoration: none;
+}
+.latex_proof::after{
+  content: "\220E";
+  color: gray;
+  text-align: right;
+  display: block;
+  font-size: 1.2em;
+}
+</style>
+        <style type="text/css">
+            .hidden {display:none;}
+        </style>
+        <script type="text/javascript">
+         jQuery('html').addClass('hidden');
+	            
+	 jQuery(document).ready(function($) {		            
+	    $('html').removeClass('hidden');	            
+	 });  
+        </script>
+    		<style type="text/css">body { background:#ffffff; }.cnt article h1.entry-title a { color:#0a0a0a; }.cnt article h2.entry-title a { color:#0a0a0a; }.bSe h1 { color:#0a0a0a; }.bSe h2 { color:#0a0a0a; }.bSe h3 { color:#0a0a0a; }.bSe h4 { color:#0a0a0a; }.bSe h5 { color:#0a0a0a; }.bSe h6 { color:#0a0a0a; }.cnt article p { color:#0a0a0a; }.cnt .bSe article { color:#0a0a0a; }.cnt article h1 a, .tve-woocommerce .bSe .awr .entry-title, .tve-woocommerce .bSe .awr .page-title{font-family:Open Sans,sans-serif;}.bSe h1{font-family:Open Sans,sans-serif;}.bSe h2,.tve-woocommerce .bSe h2{font-family:Open Sans,sans-serif;}.bSe h3,.tve-woocommerce .bSe h3{font-family:Open Sans,sans-serif;}.bSe h4{font-family:Open Sans,sans-serif;}.bSe h5{font-family:Open Sans,sans-serif;}.bSe h6{font-family:Open Sans,sans-serif;}.cnt, .bp-t, .tve-woocommerce .product p, .tve-woocommerce .products p{font-family:Open Sans,sans-serif;font-weight:400;}article strong {font-weight: bold;}.bSe h1, .bSe .entry-title { font-size:36px; }.cnt { font-size:14px; }.out { font-size:14px; }.thrivecb { font-size:14px; }.aut p { font-size:14px; }.cnt p { line-height:2em; }.lhgh { line-height:2em; }.dhgh { line-height:2em; }.dhgh { font-size:14px; }.lhgh { font-size:14px; }.thrivecb { line-height:2em; }.cnt .cmt, .cnt .acm { background-color:#4d7fdf; }.trg { border-color:#4d7fdf transparent transparent; }.str { border-color: transparent #4d7fdf transparent transparent; }.brd ul li { color:#4d7fdf; }.bSe a { color:#4d7fdf; }.bSe .faq h4{font-family:Open Sans,sans-serif;font-weight:400;}article strong {font-weight: bold;}header ul.menu > li > a { color:#ffffff; }header .phone .apnr, header .phone .apnr:before, header .phone .fphr { color:#ffffff; }header ul.menu > li > a:hover { color:#ffffff; }header .phone:hover .apnr, header .phone:hover .apnr:before, header .phone:hover .fphr { color:#ffffff; }header nav > ul > li.current_page_item > a:hover { color:#ffffff; }header nav > ul > li.current_menu_item > a:hover { color:#ffffff; }header nav > ul > li.current_menu_item > a:hover { color:#ffffff; }header nav > ul > li > a:active { color:#ffffff; }header #logo > a > img { max-width:180px; }header ul.menu > li.h-cta > a { color:#FFFFFF!important; }header ul.menu > li.h-cta >a  { background:#ffffff; }header ul.menu > li.h-cta > a { border-color:#ffffff; }header ul.menu > li.h-cta > a:hover { color:#FFFFFF!important; }header ul.menu > li.h-cta > a:hover { background:#ffffff; }.product.woocommerce.add_to_cart_inline a.button.product_type_simple.ajax_add_to_cart { background-color:#FFFFFF; }.product.woocommerce.add_to_cart_inline a.button.product_type_simple.ajax_add_to_cart { border-color:#4d7fdf; }.product.woocommerce.add_to_cart_inline a.button.product_type_simple.ajax_add_to_cart { color:#4d7fdf; }.product.woocommerce.add_to_cart_inline a.button.product_type_simple.ajax_add_to_cart:hover { background-color:#4d7fdf; }.woocommerce p.return-to-shop a.button.wc-backward { border-color:#4d7fdf; }.woocommerce p.return-to-shop a.button.wc-backward { color:#4d7fdf; }.woocommerce p.return-to-shop a.button.wc-backward:hover { background:#4d7fdf; }.woocommerce p.return-to-shop a.button.wc-backward:hover { color:#FFFFFF; }</style>
+		<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #ffffff; }
+</style>
+	<link rel="icon" href="https://www.dataquest.io/wp-content/uploads/2019/01/cropped-rocket-icon-50x50.jpg" sizes="32x32" />
+<link rel="icon" href="https://www.dataquest.io/wp-content/uploads/2019/01/cropped-rocket-icon-300x300.jpg" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.dataquest.io/wp-content/uploads/2019/01/cropped-rocket-icon-300x300.jpg" />
+<meta name="msapplication-TileImage" content="https://www.dataquest.io/wp-content/uploads/2019/01/cropped-rocket-icon-300x300.jpg" />
+		<style type="text/css" id="wp-custom-css">
+			body  {font-family: ingra, sans-serif; color: #232a3d;}
+
+button, input, select, textarea, h4, h5, h6, .widget-area.sidebar, nav, p, .thrv-styled-list-item, .bSe h4, ol li, ul li  {font-family: ingra, sans-serif; font-weight: 300; color: #232a3d; }
+
+.single-post article, .single-post article ul li, .single-post article p, .single-post article blockquote, .single-post article ol li {line-height: 1.8em; font-size: 15px; font-family: merriweather;}
+
+.page-template-fullwidth-page p, .page-template-default p, .page-template-default ul li, .page-template-default ol li {font-family: ingra, sans-serif; line-height: 1.7em; margin: 0px 0px; font-size: 16px; color: #232a3d!important; font-weight: 300;}
+
+.tcb-button-text {font-family: industry, sans-serif!important; font-weight: 700; letter-spacing: 1px;}
+
+h1, h2, h3 {font-family: industry, sans-serif!important; color: #232a3d!important; font-weight: 700!important;}
+
+.bSe h1 {font-size: 36px!important;}
+
+.scn>ul a:hover, section[id*='nav_menu-'] .scn ul a:hover, .scn ul[id*='menu'] a:hover {margin: 0px;}
+
+.path-box h3 {font-size: 17px!important; font-weight: 900; margin: 0px 0px 5px 0px; line-height: 1em}
+
+.path-box p {line-height: 1.6em; font-size: 14px;}
+
+.path-box a {text-decoration: none!important;}
+
+.path-box-button-text {text-transform: uppercase!important; letter-spacing: 1px;}
+
+
+.post-template-default h1, .post-template-default h2, .post-template-default h3 {padding: 40px 0px 20px}
+
+.post-template-default h4, .post-template-default h5, .post-template-default h6 {padding: 10px 0px 20px}
+
+
+#floating_menu header {padding: 2px!important; height: 58px!important;
+}
+
+header {border-bottom: 0px!important;}
+
+
+.menu, .page_item a, .menu-item a {font-size: 11px; text-transform: UPPERCASE; text-decoration: none; font-weight: 100; line-height: 1em;}
+
+header #logo > a > img {padding: 10px 0px 10px 0px;}
+
+header nav>ul>li.menu-item-has-children:hover>a:after, 
+header nav>ul>li.menu-item-has-children>a:after {color: #ffffff!important; font-weight: 100; }
+
+header nav>ul.menu li.current-menu-item>a, header nav>ul.menu li.current_page_item>a, header nav ul#menu li.current-menu-item>a, header nav ul#menu li.current_page_item>a {color: #ffffff;}
+
+header nav li.col-no-4>ul.sub-menu, header nav li.col-no-4 ul.sub-menu.position_menu {margin-top: 20px;}
+
+header nav>ul>li.menu-item-has-children>a:after {display: none;}
+
+header nav li.has-extended>ul.sub-menu {background: #ffffff;}
+
+header nav li.has-extended>ul.sub-menu li.menu-item {background: transparent; }
+
+header nav li.has-extended>ul.sub-menu li.menu-item a[href] {color: #232a3d;}
+
+header nav li.has-extended>ul.sub-menu li.menu-item a[href]:hover {color: #4d7fdf; background-color: rgb(242, 243, 247);}
+
+#menu-item-11096 a.colch {padding: 18px 8px 8px 8px; font-size: 14px; font-weight: 900;}
+
+#menu-item-11069 a.colch, #menu-item-11053 a.colch, #menu-item-11054 a.colch {color: #ffffff;}
+ 
+
+li.has-extended>ul.sub-menu>li ul.sub-menu li {margin: 0px 0px 0px 0px;}
+
+header nav li.has-extended>ul.sub-menu>li ul.sub-menu li a {line-height: 1.6em; padding: 10px 0px 10px 10px; font-size: 12px;}
+
+@media only screen and (max-width: 769px) {
+	header .hmn .rmn {background-image: none; border: 0px; }
+}
+
+@media only screen and (min-width: 769px) {
+	#menu-item-20221 a {background-color: #61D199; border-radius: 5px;  padding: 6px 8px 5px; margin-top: -6px;}}
+
+@media only screen and (max-width: 768px) {
+	header nav li.has-extended ul.sub-menu li a {display: none;} 
+
+li#menu-item-11094	ul.sub-menu {display: none!important;}
+}
+
+
+.csbwfs-social-widget {
+    z-index: 100!important;
+}
+
+.page-template-default .csbwfs-social-widget, .blog .csbwfs-social-widget {display: none;}
+
+:not(pre) > code[class*="language-"], pre[class*="language-"] {background-color: #000000; border-radius: 3px;}
+
+p code {
+background-color: #e5eff5;
+padding: 1px 3px;
+border-radius: 3px;
+font-size: .95em;
+color: #000000;}
+
+pre {background: #000000; margin-top: -10px;}
+pre code {font-size: 13px; padding: 0px; color: #ffffff; background: #000000;}
+
+code[class*="language-"], pre[class*="language-"] {font-size: 15px; margin-bottom: 20px; margin-top: -10px;}
+
+
+
+.single-post table {width: 85%; margin: 30px auto; }
+
+.single-post table th {background-color: #f4f8fb; /*text-transform: lowercase;*/ color: #232a3d!important;}
+
+.single-post table td, article table th {font-size: 15px; border: 1px solid #e3ecf3; font-family: ingra, sans-serif; }
+
+.single-post h1, .single-post h2, .single-post h3, .single-post h4, .single-post h5 {font-family: merriweather!important;}
+
+.single-post .bSe h1.entry-title {font-size: 38px!important; color: #232a3d!important;}
+.single-post h2 {font-size: 32px; color: #232a3d!important;}
+.single-post h3 {font-size: 29px; color: #232a3d!important;}
+.single-post h4 {font-size: 26px; color: #232a3d!important;}
+.single-post h5 {font-size: 23px; color: #232a3d!important;}
+
+.page-header .page-title {text-transform: none; color: #ffffff; font-weight: normal; letter-spacing: 0em; font-size: 18px; line-height: 24px;}
+
+
+.widgets-list-layout-links  {line-height: 1.3; font-size: 14px}
+
+
+.sidebar .widget .widget-title {font-family: ingra, sans-serif; letter-spacing: 1.5px; padding-bottom: 15px; border-top: 1px solid #e9e9e9!important; padding-top: 25px;}
+
+.site-branding .site-title, .site-branding .site-text-logo {font-size: 20px; color: #ffffff; font-weight: normal; text-transform: none;}
+
+#content img {display: block; margin: 0px auto;}
+
+div table{
+    overflow-x:auto;
+}
+
+.scn ul li a {color: #232a3d;}
+.scn ul li a:hover {color: #4d7fdf;}
+
+
+.err {text-align: center;}
+.err h1 {display: none;}
+.err h4 {display: none;}
+form.lost {
+	display: inline-block; width: 80%;}
+
+.err .csc {text-align: left;}
+
+
+.sAs .srh input.search-field, .sAs .srh .search_field {
+	width: 285px;}
+
+ .srh input.search-field,  .srh .search_field {background-color: #ffffff; box-shadow: none; border-top: 2px solid #31394a; border-left: 2px solid #31394a; border-bottom: 2px solid #31394a; border-right: 0px;}
+
+input.search-field {font-size: 13px; line-height: 15px; padding: 10px;}
+
+input.search-field::-webkit-input-placeholder { 
+  color: transparent;
+}
+input.search-field::-moz-placeholder {
+  color: transparent;
+}
+input.search-field:-ms-input-placeholder { /* IE 10+ */
+  color: transparent;
+}
+	
+input.search-field:-moz-placeholder {
+  color: transparent;
+}
+
+form.srh {margin-left: 0px; padding-top: 5px; }
+
+input.search-field, .search_field {font-size: 1em; font-weight: 100; }
+
+input.search-field, .search-button, .submit_btn {
+    height: 40px; margin: 0px; padding: 0px 0px 0px 5px;
+	}
+
+.search-button, .submit_btn {background-color: #31394a!important; background-image:none; border: none; height: 47px!important;}
+
+.sAs .search-button, .sAs .submit_btn { 
+    width: 50px; z-index: 1000; position: relative;  top: -47px; left: 292px; }
+
+@media only screen and (max-width: 1080px) {
+.sAs .search-button, .sAs .submit_btn { 
+	width: 50px; z-index: 1000; position: relative;  top: -0px; left: 0px; }
+	form.srh {margin-bottom: 20px;}
+	
+	.sAs .srh input.search-field, .sAs .srh .search_field {
+    height: 43px;
+}
+}
+
+
+svg.tcb-icon {
+	color: #61d199; 
+}
+
+.gmt-edd-slack-row {
+	text-align: center;
+}
+
+input#gmt_edd_slack_email {
+  width: 280px;
+	text-align: left;
+	padding: 10px 30px 10px 15px; 
+}
+
+button.gmt-edd-slack-form-button {
+font-size: 16px; line-height: 15px; padding: 14px 30px; background-color: #61D199; color: #ffffff;  margin: 5px 10px; border: 0px; border-radius: 3px; text-transform: uppercase; width: 250px;
+}
+
+.thrv_wrapper.thrv-pricing-table .tcb-pricing-table-box-container .tcb-pt-featured-box .tve-content-box-background {
+    border-top-color: #61d199;
+}
+
+
+.tvo-set12-template.tve_teal .tvo-testimonial-quote {color: #4d7fdf!important;}
+
+.tvo-set12-template.tve_teal .tvo-testimonial-name {color: #4d7fdf!important;}
+
+
+.directory-coursebox p {margin-top: 0px; font-size: 14px; margin-bottom: 22px!important; }
+
+.directory-coursebox .tcb--cols--2 {margin-top: 5px;}
+
+.directory-course-label p {margin: 3px 0px; }
+
+a .thrv-content-box p {color: #ffffff!important; text-decoration: none!important;}
+
+@media only screen and (max-width: 769px) {
+	.directory-coursebox .tcb--cols--2, .directory-coursebox .tcb--cols--2 p { text-align: center!important; }}
+
+@media only screen and (max-width: 769px) {
+	.directory-coursebox .tcb--cols--2 .directory-course-label p { margin-top: -20px;}}
+
+@media only screen and (max-width: 769px) {
+	.directory-coursebox .tcb--cols--2 .thrv-button a { margin-top: -20px;}}
+
+.directory-coursebox .tcb-button-texts {padding: 0px 20px;}
+
+@media only screen and (max-width: 767px){.thrv_wrapper.thrv-columns.directory-course-columns {margin-top: -40px;}}
+
+.path-box-button-text p {font-family: industry!important; font-weight: 700;}
+
+.course-box-course-info p {font-family: industry!important; font-weight: 700; font-size: 14px}
+
+.course-box h2 {font-size: 22px;}
+
+.course-box p {font-size: 13px;}
+
+.course-box a {text-decoration: none!important;}
+
+.scn.aut {
+    box-shadow: none;
+    background: #ffffff;
+    border-radius: 5px;
+    border: 2px solid #d4d4d4;
+    margin-bottom: 10px;
+}
+
+.scn h5 {font-family: industry, sans-serif; font-weight: 900;}
+
+.blog .awr h2.entry-title, .archive .awr h2.entry-title, .search .awr h2.entry-title  { font-size: 24px!important; font-weight: 900; line-height: 1.4em!important; margin-top: 10px; margin-bottom: 10px; font-family: ingra, serif!important; text-align: left;}
+.cnt article h2.entry-title a {color: #232a3d!important;}
+
+.cnt article h2.entry-title a:hover {color: #4d7fdf!important;}
+
+.blog .awr .category a, .archive .awr .category a, .search .awr .category a {font-family: ingra, sans-serif; text-decoration: none; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; font-weight: 300; line-height: 2em; }
+
+.blog .awr p, .archive .awr p, .search .awr p {font-family: merriweather, serif!important; margin-bottom: 0px!important; line-height: 1.9em; color: #232a3d!important;}
+
+.blog footer, .archive footer, .search footer  {margin: 5px!important;}
+
+
+
+
+.cnt .rltp p, .cnt .rltp h5, .cnt .rltpi a p, .cnt .rltpi h5  {font-family: ingra, sans-serif;  font-weight: 500; font-size: 15px; color: #232a3d; }
+
+
+
+.cnt .rltp p:before, .cnt .rltpi p:before {display: none;}
+
+.cnt .rltp h5, .cnt .rltpi h5 {margin: 5px 0px;}
+
+.cnt article ul {
+    list-style: disc;
+}
+
+
+
+.cnt section footer {}
+
+
+
+footer .ftw {background-color: #232a3d; padding: 40px 0px 0px 0px;}
+
+footer .ftw ul li a, footer .ftw .textwidget  {color: #ffffff;  font-size: 12px;}
+
+footer .copy {display: none;}
+
+.tvo-set12-template.tvo-testimonials-display-single .tvo-testimonial-quote {font-family: industry!important; font-size: 168px!important; margin-left: -10px;}
+
+.tvo-testimonials-display.tvo-set12-template .tvo-testimonial-display-item h4, .tvo-testimonials-display.tvo-set12-template .tvo-testimonial-display-item p {font-family: ingra!important;  font-size: 15px!important; font-weight: 100!important; font-style: normal!important; color: #0C0A48!important;}
+
+
+
+.tvo-testimonial-info svg {display: none; }
+
+.tvo-testimonial-info .tvo-testimonial-name, .tvo-testimonial-info .tvo-testimonial-role {
+font-family: ingra!important;  font-size: 15px!important;
+color: #232a3d!important;}
+
+.tvo-testimonial-info .tvo-testimonial-name {font-weight: 700!important;;}
+
+
+
+.tvo-set12-template.tvo-testimonials-display-single .tvo-testimonial-quote:before, .tvo-set12-template.tvo-testimonials-display-single .tvo-testimonial-quote:after {display: none;}
+
+@media only screen and (min-width: 768px) {
+	.why-p, .mission-two-columns {column-count: 2; column-gap: 40px; }}
+
+.why-p p, .why-p ul li {font-size: 15px; margin-bottom: 20px!important; font-weight: 300;}
+
+.gmt-edd-slack-alert-success {border: 1px solid #000000; padding: 20px; text-align: center;}
+
+.sub-picker .tve_scT .tve_scTC {background: transparent; border: 0px;}
+
+.sub-picker .tve_scT>ul li {border: 1px solid #cccccc; text-transform: capitalize; }
+
+.sub-picker .tve_scT>ul li.annual {border-radius: 5px;}
+
+.sub-picker .tve_scT>ul li.monthly {border-radius: 5px; margin-bottom: 5px!important;}
+
+.thrv_wrapper.thrv-tabbed-content div.tve_scT>ul li span {width: 70px; font-size: 12px; font-family: industry; letter-spacing: 1px; line-height: 1em; }
+
+.sub-picker ul.mon-ann {display: block; margin: auto auto!important; width: 200px; }
+
+.sub-picker ul li.annual, .sub-picker ul li.monthly {padding: 10px!important; }
+
+.thrv-pricing-table {margin-top: -40px}
+
+.thrv_wrapper.thrv-tabbed-content div.tve_scT>ul li:hover {color: #232a3d; }
+
+.main-testimonial .tvo-testimonials-display.tvo-set12-template .tvo-testimonial-display-item p {font-size: 20px!important;}
+
+.mission-ppp-horizontal {display: none;}
+
+.mission-outline p {font-size: 14px;  line-height: 1.6em; padding-top: 8px;}
+
+.mission-outline br {line-height: 3em}
+
+.mission-outline {column-count: 1; column-gap: 10px; }
+
+.ctb {border: none;}
+.ctb h5  {display: none;}
+
+#comments {border: none;}
+
+.cmc {margin: 0 auto 20px auto; }
+.cmc .awe {display: none;}
+.cmc, .cmc p {font-family: ingra!important; color: #232a3d!important; }
+
+.cmb {margin: 0px;}
+
+.lrp p {font-family: industry, sans-serif!important; font-size: 18px!important; color: #232a3d!important;}
+
+textarea:not(.editor-post-title__input) {background: #ffffff; box-shadow: none; border: 2px solid #e9e9e9; }
+
+.lrp input[type="submit"] {
+    background: #61D199;
+    border-radius: 5px;
+	border: 0px;
+    color: #ffffff;
+    font-size: 1em;
+    font-family: industry, sans-serif;
+    margin: 20px 0;
+    padding: 12px 36px 12px 36px;
+    text-align: center;
+}
+
+.lrp input[type="text"] {
+    box-sizing: border;
+    border-radius: 5px;
+	box-shadow: none;
+    background: #ffffff;
+    border: 1px solid #e9e9e9;
+    color: #232a3d;
+    float: left;
+    font-size: 1em;
+    font-weight: 700;
+    font-family: ingra, sans-serif;
+    height: 32px;
+    margin: 0% 4.2% 3% 0%;
+    padding: 0% 0% 0% 2%;
+    width: 30.3%;
+}
+
+.lrp textarea::-webkit-input-placeholder {
+   color:transparent;
+}
+
+.lrp textarea:-moz-placeholder { /* Firefox 18- */
+   color:transparent; 
+}
+
+.lrp textarea::-moz-placeholder {  /* Firefox 19+ */
+   color:transparent; 
+}
+
+.lrp textarea:-ms-input-placeholder {  
+   color:transparent;
+}
+
+.footer-links a {color: #ffffff; line-height: 2}
+
+
+#tve_tcb2_set-021 {display: none;}
+
+a.tcb-button-link {background-color: #61D199; text-transform: uppercase; padding: 12px 30px; border-radius: 5px!important;}
+
+a.tcb-button-link:hover {background-color: rgb(97, 209, 153) !important; }
+
+
+.industry p {font-family: industry, sans-serif!important; }
+
+body.home {background-color: #232a3d;}
+
+.course-header p strong, .mission-header p strong, .mission-header .tcb-plain-text {font-size: 12px!important; letter-spacing: 3px;
+    color: rgb(77, 127, 223) !important;}
+
+.mission-header .tcb-plain-text {margin-bottom: 10px;}
+
+.directory-coursebox h3 {margin-top: 5px}
+
+.post-template-default .sidebar-blog-title h2 {font-family: industry!important; margin-top: -10px; margin-bottom: 0px;}
+
+.post-template-default .sidebar-blog-subtitle { margin-bottom: 20px;}
+
+#signup_form .error {
+    display: block;
+    line-height: .7em;
+    padding: 0;
+    color: #a94342;
+    font-family: ingra,sans-serif;
+    font-weight: 400;
+	border: 1px solid #990000;
+}
+
+
+.cnt .sAs .ttl {font-family: industry; color: #31394a; border: 0px; margin-bottom: 0px; font-size: 22px; margin-left: 5px;}
+
+section[id*='nav_menu-'] .scn ul li, .scn ul[id*='menu'] li {border-bottom: 0px; padding: 10px 0px; list-style-type: disc; margin-left: 40px; color: #31394a; font-family: ingra; letter-spacing: 1px;}
+
+.scn ul li a {font-size: 13px;}
+
+.scn>ul li:after, section[id*='nav_menu-'] .scn ul li:after, .scn ul[id*='menu'] li:after {content: none; }
+
+
+.cnt .sAs>section {margin-bottom: 20px!important;}
+
+#nav_menu-3 {margin-top: -20px;}
+
+.cnt .sAs.right {border: 0px;}
+
+.tve_flt .tve_contents_table .tve_ct_title {font-family: industry; text-align: left; display: block; margin: 0px ; padding: 0px 0px 10px; font-weight: bold; font-size: 24px;}
+
+blockquote {
+	padding: 20px;
+	color: #428bca;
+	border-left: 5px solid #428bca;
+}
+
+.sidebar-blog-title h2 {margin: 0px; padding: 10px}
+		</style>
+					</head>
+<body class="post-template-default single single-post postid-21484 single-format-standard custom-background locale-en-us">
+
+<div class="flex-cnt">
+	<div id="floating_menu" >
+				<header class="hbc" style="background-image:none; background-color:#232a3d">
+						<div class="wrp side_logo clearfix has_phone" id="head_wrp">
+				<div class="h-i">
+																	<div id="logo"
+							     class="left">
+								<a class="lg" href="https://www.dataquest.io/">
+									<noscript><img src="https://www.dataquest.io/wp-content/uploads/2019/01/dq-1.png"
+									     alt="Dataquest"/></noscript><img class="lazyload" src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20%20%22%3E%3C/svg%3E' data-src="https://www.dataquest.io/wp-content/uploads/2019/01/dq-1.png"
+									     alt="Dataquest"/>
+								</a>
+							</div>
+																						<div class="hmn">
+							<div class="awe rmn right">&#xf0c9;</div>
+							<div class="clear"></div>
+						</div>
+						<div class="mhl" id="nav_right">
+																													<!-- Cart Dropdown -->
+								<nav class="right"><ul id="menu-primary" class="menu"><li  id="menu-item-20226" class="menu-item menu-item-type-post_type menu-item-object-page"><a  href="https://www.dataquest.io/directory/">Courses</a></li>
+<li  id="menu-item-20223" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a  href="https://www.dataquest.io/blog/topics/student-stories/">Student Stories</a></li>
+<li  id="menu-item-20225" class="menu-item menu-item-type-post_type menu-item-object-page"><a  href="https://www.dataquest.io/were-hiring/">We&#8217;re Hiring</a></li>
+<li  id="menu-item-20220" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent"><a  href="https://www.dataquest.io/blog/">Blog</a></li>
+<li  id="menu-item-20221" class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="http://app.dataquest.io/signup">Start Learning</a></li>
+<li  id="menu-item-20222" class="menu-item menu-item-type-custom menu-item-object-custom"><a  href="http://app.dataquest.io">Log In</a></li>
+</ul></nav>														<div class="clear"></div>
+						</div>
+												<div class="clear"></div>
+														</div>
+			</div>
+		</header>
+			</div>
+	
+			
+
+
+
+			<div class="bspr"></div>
+<div class="wrp cnt">
+			<div class="bSeCont">
+				<section class="bSe left">
+
+																	
+<article>
+	<div class="awr">
+					<h1 class="entry-title">SQL Joins Tutorial: Working with Databases</h1>
+							<noscript><img src="https://www.dataquest.io/wp-content/uploads/2019/10/sql-database-schema-1895779_1280-1040x520.png" alt="SQL joins schema digram"
+			     title="sql-database-schema-1895779_1280"
+			     class="fwI"/></noscript><img src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20%20%22%3E%3C/svg%3E' data-src="https://www.dataquest.io/wp-content/uploads/2019/10/sql-database-schema-1895779_1280-1040x520.png" alt="SQL joins schema digram"
+			     title="sql-database-schema-1895779_1280"
+			     class="lazyload fwI"/>
+		
+		<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+        When first learning SQL, it&#8217;s common to work with data in a single table. In the real world, databases generally have data in more than one table. If we want to be able to work with that data, we&#8217;ll have to combine multiple tables within a query. In this SQL joins tutorial, we&#8217;ll learn how to use <strong>joins</strong> to select data from multiple tables.
+      </p>
+<p>
+        We&#8217;ll assume that you know the fundamentals of working in SQL including filtering, sorting, aggregation, and subqueries. If you don&#8217;t, our <a href="https://www.dataquest.io/course/sql-fundamentals/">SQL Fundamentals course</a> teaches all of these concepts, and you can start that course for free.
+      </p>
+<p>
+        This tutorial is based on the first mission of our <a href="https://www.dataquest.io/course/sql-joins-relations/">SQL Intermediate</a> course, so if you&#8217;d like to follow along with an interactive version you can complete that mission for free!
+      </p>
+<h2 id="The-Factbook-Database">
+        The Factbook Database<a class="anchor-link" href="#The-Factbook-Database"></a><br />
+      </h2>
+<p>
+        We&#8217;re going to be using a version of the CIA World Factbook (Factbook) database that has two tables. The first table is called <code>facts</code>, and each row represents a country from the Factbook. Here are the first 5 rows of the <code>facts</code> table:
+      </p>
+<div style="max-height:500px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+                id
+              </th>
+<th>
+                code
+              </th>
+<th>
+                name
+              </th>
+<th>
+                area
+              </th>
+<th>
+                area_land
+              </th>
+<th>
+                area_water
+              </th>
+<th>
+                population
+              </th>
+<th>
+                population_growth
+              </th>
+<th>
+                birth_rate
+              </th>
+<th>
+                death_rate
+              </th>
+<th>
+                migration_rate
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+                1
+              </td>
+<td>
+                af
+              </td>
+<td>
+                Afghanistan
+              </td>
+<td>
+                652230
+              </td>
+<td>
+                652230
+              </td>
+<td>
+                0
+              </td>
+<td>
+                32564342
+              </td>
+<td>
+                2.32
+              </td>
+<td>
+                38.57
+              </td>
+<td>
+                13.89
+              </td>
+<td>
+                1.51
+              </td>
+</tr>
+<tr>
+<td>
+                2
+              </td>
+<td>
+                al
+              </td>
+<td>
+                Albania
+              </td>
+<td>
+                28748
+              </td>
+<td>
+                27398
+              </td>
+<td>
+                1350
+              </td>
+<td>
+                3029278
+              </td>
+<td>
+                0.30
+              </td>
+<td>
+                12.92
+              </td>
+<td>
+                6.58
+              </td>
+<td>
+                3.30
+              </td>
+</tr>
+<tr>
+<td>
+                3
+              </td>
+<td>
+                ag
+              </td>
+<td>
+                Algeria
+              </td>
+<td>
+                2381741
+              </td>
+<td>
+                2381741
+              </td>
+<td>
+                0
+              </td>
+<td>
+                39542166
+              </td>
+<td>
+                1.84
+              </td>
+<td>
+                23.67
+              </td>
+<td>
+                4.31
+              </td>
+<td>
+                0.92
+              </td>
+</tr>
+<tr>
+<td>
+                4
+              </td>
+<td>
+                an
+              </td>
+<td>
+                Andorra
+              </td>
+<td>
+                468
+              </td>
+<td>
+                468
+              </td>
+<td>
+                0
+              </td>
+<td>
+                85580
+              </td>
+<td>
+                0.12
+              </td>
+<td>
+                8.13
+              </td>
+<td>
+                6.96
+              </td>
+<td>
+                0.00
+              </td>
+</tr>
+<tr>
+<td>
+                5
+              </td>
+<td>
+                ao
+              </td>
+<td>
+                Angola
+              </td>
+<td>
+                1246700
+              </td>
+<td>
+                1246700
+              </td>
+<td>
+                0
+              </td>
+<td>
+                19625353
+              </td>
+<td>
+                2.78
+              </td>
+<td>
+                38.78
+              </td>
+<td>
+                11.49
+              </td>
+<td>
+                0.46
+              </td>
+</tr>
+</tbody>
+</table></div>
+<p>
+        In addition to the <code>facts</code> table is a second table called <code>cities</code> which contains information on <a href="https://www.cia.gov/library/publications/the-world-factbook/docs/notesanddefs.html?fieldkey=2219&#038;term=Major%20urban%20areas%20-%20population">major urban areas</a> from countries in the Factbook (for the rest of this tutorial, we&#8217;ll use the word &#8216;cities&#8217; to mean the same as &#8216;major urban areas&#8217;). Let&#8217;s take a look at the first few rows of this table and a description of what each column represents:
+      </p>
+<div style="max-height:500px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+                id
+              </th>
+<th>
+                name
+              </th>
+<th>
+                population
+              </th>
+<th>
+                capital
+              </th>
+<th>
+                facts_id
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+                1
+              </td>
+<td>
+                Oranjestad
+              </td>
+<td>
+                37000
+              </td>
+<td>
+                1
+              </td>
+<td>
+                216
+              </td>
+</tr>
+<tr>
+<td>
+                2
+              </td>
+<td>
+                Saint John&#8217;S
+              </td>
+<td>
+                27000
+              </td>
+<td>
+                1
+              </td>
+<td>
+                6
+              </td>
+</tr>
+<tr>
+<td>
+                3
+              </td>
+<td>
+                Abu Dhabi
+              </td>
+<td>
+                942000
+              </td>
+<td>
+                1
+              </td>
+<td>
+                184
+              </td>
+</tr>
+<tr>
+<td>
+                4
+              </td>
+<td>
+                Dubai
+              </td>
+<td>
+                1978000
+              </td>
+<td>
+                0
+              </td>
+<td>
+                184
+              </td>
+</tr>
+<tr>
+<td>
+                5
+              </td>
+<td>
+                Sharjah
+              </td>
+<td>
+                983000
+              </td>
+<td>
+                0
+              </td>
+<td>
+                184
+              </td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li>
+          <code>id</code> &#8211; A unique ID for each city.
+        </li>
+<li>
+          <code>name</code> &#8211; The name of the city.
+        </li>
+<li>
+          <code>population</code> &#8211; The population of the city.
+        </li>
+<li>
+          <code>capital</code> &#8211; Whether the city is a capital city: <code>1</code> if it is, <code>0</code> if it isn&#8217;t.
+        </li>
+<li>
+          <code>facts_id</code> &#8211; The ID of the country, from the <code>facts</code> table.
+        </li>
+</ul>
+<p>
+        The last column is of particular interest to us, as it is a column of data that also exists in our original <code>facts</code> table. This link between tables is important as it&#8217;s used to combine the data in our queries. Below is a <strong>schema diagram</strong>, which shows the two tables in our database, the columns within them and how the two are linked.
+      </p>
+<p>
+        <noscript><img src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/schema.svg" alt="schema diagram" /></noscript><img class="lazyload" src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20%20%22%3E%3C/svg%3E' data-src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/schema.svg" alt="schema diagram" />
+      </p>
+<p>
+        The line in the schema diagram clearly shows the link between the <code>id</code> column in the <code>facts</code> table and the <code>facts_id</code> column in the <code>cities</code> table.
+      </p>
+<p>
+        If you&#8217;d like to download the database to follow along on your own computer you can <a href="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/factbook.db">download the dataset as a SQLite database</a>.
+      </p>
+<h2 id="Our-First-SQL-Join">
+        Our First SQL Join<a class="anchor-link" href="#Our-First-SQL-Join"></a><br />
+      </h2>
+<p>
+        The most common way to join data using SQL is using an <strong>inner join</strong>. The syntax for an inner join is:
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span> <span class="p">[</span><span class="n">column_names</span><span class="p">]</span> <span class="k">FROM</span> <span class="p">[</span><span class="n">table_name_one</span><span class="p">]</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="p">[</span><span class="n">table_name_two</span><span class="p">]</span> <span class="k">ON</span> <span class="p">[</span><span class="n">join_constraint</span><span class="p">];</span>
+</pre>
+</p></div>
+<p>
+        The inner join clause is made up of two parts:
+      </p>
+<ul>
+<li>
+          <code>INNER JOIN</code>, which tells the SQL engine the name of the table you wish to join in your query, and that you wish to use an inner join.
+        </li>
+<li>
+          <code>ON</code>, which tells the SQL engine what columns to use to join the two tables.
+        </li>
+</ul>
+<p>
+        Joins are usually used in a query after the <code>FROM</code> clause. Let&#8217;s look at a basic inner join where we combine the data from both of our tables.
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">facts</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">cities</span> <span class="k">ON</span> <span class="n">cities</span><span class="p">.</span><span class="n">facts_id</span> <span class="o">=</span> <span class="n">facts</span><span class="p">.</span><span class="n">id</span>
+<span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+</pre>
+</p></div>
+<p>
+        Let&#8217;s look at the line of the query with the join in it:
+      </p>
+<ul>
+<li>
+          <code>INNER JOIN cities</code>: This tells the SQL engine that we wish to join the <code>cities</code> table to our query using an inner join.
+        </li>
+<li>
+          <code>ON cities.facts_id = facts.id</code>: This tells the SQL engine which columns to use when joining the data, following the syntax <code>table_name.column_name</code>.
+        </li>
+</ul>
+<p>
+        You might presume that <code>SELECT * FROM facts</code> will mean that the query returns only columns from the <code>facts</code> table, however the <code>*</code> wildcard when used with a join will give you all columns from both tables. Here is the result of this query:
+      </p>
+<div style="max-height:500px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+                id
+              </th>
+<th>
+                code
+              </th>
+<th>
+                name
+              </th>
+<th>
+                area
+              </th>
+<th>
+                area_land
+              </th>
+<th>
+                area_water
+              </th>
+<th>
+                population
+              </th>
+<th>
+                population_growth
+              </th>
+<th>
+                birth_rate
+              </th>
+<th>
+                death_rate
+              </th>
+<th>
+                migration_rate
+              </th>
+<th>
+                id
+              </th>
+<th>
+                name
+              </th>
+<th>
+                population
+              </th>
+<th>
+                capital
+              </th>
+<th>
+                facts_id
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+                216
+              </td>
+<td>
+                aa
+              </td>
+<td>
+                Aruba
+              </td>
+<td>
+                180
+              </td>
+<td>
+                180
+              </td>
+<td>
+                0
+              </td>
+<td>
+                112162
+              </td>
+<td>
+                1.33
+              </td>
+<td>
+                12.56
+              </td>
+<td>
+                8.18
+              </td>
+<td>
+                8.92
+              </td>
+<td>
+                1
+              </td>
+<td>
+                Oranjestad
+              </td>
+<td>
+                37000
+              </td>
+<td>
+                1
+              </td>
+<td>
+                216
+              </td>
+</tr>
+<tr>
+<td>
+                6
+              </td>
+<td>
+                ac
+              </td>
+<td>
+                Antigua and Barbuda
+              </td>
+<td>
+                442
+              </td>
+<td>
+                442
+              </td>
+<td>
+                0
+              </td>
+<td>
+                92436
+              </td>
+<td>
+                1.24
+              </td>
+<td>
+                15.85
+              </td>
+<td>
+                5.69
+              </td>
+<td>
+                2.21
+              </td>
+<td>
+                2
+              </td>
+<td>
+                Saint John&#8217;S
+              </td>
+<td>
+                27000
+              </td>
+<td>
+                1
+              </td>
+<td>
+                6
+              </td>
+</tr>
+<tr>
+<td>
+                184
+              </td>
+<td>
+                ae
+              </td>
+<td>
+                United Arab Emirates
+              </td>
+<td>
+                83600
+              </td>
+<td>
+                83600
+              </td>
+<td>
+                0
+              </td>
+<td>
+                5779760
+              </td>
+<td>
+                2.58
+              </td>
+<td>
+                15.43
+              </td>
+<td>
+                1.97
+              </td>
+<td>
+                12.36
+              </td>
+<td>
+                3
+              </td>
+<td>
+                Abu Dhabi
+              </td>
+<td>
+                942000
+              </td>
+<td>
+                1
+              </td>
+<td>
+                184
+              </td>
+</tr>
+<tr>
+<td>
+                184
+              </td>
+<td>
+                ae
+              </td>
+<td>
+                United Arab Emirates
+              </td>
+<td>
+                83600
+              </td>
+<td>
+                83600
+              </td>
+<td>
+                0
+              </td>
+<td>
+                5779760
+              </td>
+<td>
+                2.58
+              </td>
+<td>
+                15.43
+              </td>
+<td>
+                1.97
+              </td>
+<td>
+                12.36
+              </td>
+<td>
+                4
+              </td>
+<td>
+                Dubai
+              </td>
+<td>
+                1978000
+              </td>
+<td>
+                0
+              </td>
+<td>
+                184
+              </td>
+</tr>
+<tr>
+<td>
+                184
+              </td>
+<td>
+                ae
+              </td>
+<td>
+                United Arab Emirates
+              </td>
+<td>
+                83600
+              </td>
+<td>
+                83600
+              </td>
+<td>
+                0
+              </td>
+<td>
+                5779760
+              </td>
+<td>
+                2.58
+              </td>
+<td>
+                15.43
+              </td>
+<td>
+                1.97
+              </td>
+<td>
+                12.36
+              </td>
+<td>
+                5
+              </td>
+<td>
+                Sharjah
+              </td>
+<td>
+                983000
+              </td>
+<td>
+                0
+              </td>
+<td>
+                184
+              </td>
+</tr>
+</tbody>
+</table></div>
+<p>
+        This query gives us all columns from both tables and every row where there is a match between the <code>id</code> column from <code>facts</code> and the <code>facts_id</code> from <code>cities</code>, limited to the first 5 rows.
+      </p>
+</p></div>
+</p></div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Understanding-SQL-Inner-Joins">
+        Understanding SQL Inner Joins<a class="anchor-link" href="#Understanding-SQL-Inner-Joins"></a><br />
+      </h2>
+<p>
+        We&#8217;ve now joined the two tables to give us extra information about each row in <code>cities</code>. Let&#8217;s take a closer look at how this inner join works.
+      </p>
+<p>
+        An inner join works by including only rows from each table that have a match as specified using the <code>ON</code> clause. Let&#8217;s look at a diagram of how our join from the previous screen works. We have included a selection of rows which best illustrate the join:
+      </p>
+<p>
+        <noscript><img src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/inner_join.svg" alt="inner join" /></noscript><img class="lazyload" src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20%20%22%3E%3C/svg%3E' data-src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/inner_join.svg" alt="inner join" />
+      </p>
+<p>
+        Our inner join <strong>will</strong> include:
+      </p>
+<ul>
+<li>
+          Rows from the <code>cities</code> table that have a <code>cities.facts_id</code> that matches a <code>facts.id</code> from <code>facts</code>.
+        </li>
+</ul>
+<p>
+        Our inner join <strong>will not</strong> include:
+      </p>
+<ul>
+<li>
+          Rows from the <code>cities</code> table that have a <code>cities.facts_id</code> that don&#8217;t match any <code>facts.id</code> from <code>facts</code>.
+        </li>
+<li>
+          Rows from the <code>facts</code> table that have a <code>facts.id</code> that don&#8217;t match any <code>cities.facts_id</code> from <code>cities</code>.
+        </li>
+</ul>
+<p>
+        You can see this represented as a Venn diagram:
+      </p>
+<p>
+        <noscript><img src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/venn_inner.svg" alt="Inner join Venn diagram" /></noscript><img class="lazyload" src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20%20%22%3E%3C/svg%3E' data-src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/venn_inner.svg" alt="Inner join Venn diagram" />
+      </p>
+<p>
+        We already know how to use <a href="https://www.tutorialspoint.com/sqlite/sqlite_alias_syntax.htm">aliases</a> to specify custom names for columns, eg:
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span> <span class="k">AVG</span><span class="p">(</span><span class="n">population</span><span class="p">)</span> <span class="k">AS</span> <span class="n">average_population</span>
+</pre>
+</p></div>
+<p>
+        We can also create aliases for table names, which makes queries with joins easier to both read and write. Instead of:
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">facts</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">cities</span> <span class="k">ON</span> <span class="n">cities</span><span class="p">.</span><span class="n">facts_id</span> <span class="o">=</span> <span class="n">facts</span><span class="p">.</span><span class="n">id</span>
+</pre>
+</p></div>
+<p>
+        We can write:
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">facts</span> <span class="k">AS</span> <span class="n">f</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">cities</span> <span class="k">AS</span> <span class="k">c</span> <span class="k">ON</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span>
+</pre>
+</p></div>
+<p>
+        Just like with column names, using <code>AS</code> is optional. We can get the same result by writing:
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">facts</span> <span class="n">f</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">cities</span> <span class="k">c</span> <span class="k">ON</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span>
+</pre>
+</p></div>
+<p>
+        We can also combine aliases with wildcards &#8211; for instance, using the aliases created above, <code>c.*</code> would give us all columns from the table <code>cities</code>.
+      </p>
+<p>
+        While our query from the previous screen included both columns from the <code>ON</code> clause, we don&#8217;t need to use either column from our <code>ON</code> clause in our final list of columns. This is useful as it means we can show only the information we&#8217;re interested in, rather than having to include the two join columns every time.
+      </p>
+<p>
+        Let&#8217;s use what we&#8217;ve learned to build on our original query. We&#8217;ll:
+      </p>
+<ul>
+<li>
+          Join <code>cities</code> to <code>facts</code> using an <code>INNER JOIN</code>.
+        </li>
+<li>
+          Use aliases for table names.
+        </li>
+<li>
+          Include, in order:</p>
+<ul>
+<li>
+              All columns from <code>cities</code>.
+            </li>
+<li>
+              The <code>name</code> column from <code>facts</code> aliased to <code>country_name</code>.
+            </li>
+</ul>
+</li>
+<li>
+          Include only the first 5 rows.
+        </li>
+</ul>
+<div class="highlight">
+<pre><span class="k">SELECT</span>
+    <span class="k">c</span><span class="p">.</span><span class="o">*</span><span class="p">,</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">name</span> <span class="n">country_name</span>
+<span class="k">FROM</span> <span class="n">facts</span> <span class="n">f</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">cities</span> <span class="k">c</span> <span class="k">ON</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span>
+<span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+</pre>
+</p></div>
+<div style="max-height:500px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+                id
+              </th>
+<th>
+                name
+              </th>
+<th>
+                population
+              </th>
+<th>
+                capital
+              </th>
+<th>
+                facts_id
+              </th>
+<th>
+                country_name
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+                1
+              </td>
+<td>
+                Oranjestad
+              </td>
+<td>
+                37000
+              </td>
+<td>
+                1
+              </td>
+<td>
+                216
+              </td>
+<td>
+                Aruba
+              </td>
+</tr>
+<tr>
+<td>
+                2
+              </td>
+<td>
+                Saint John&#8217;S
+              </td>
+<td>
+                27000
+              </td>
+<td>
+                1
+              </td>
+<td>
+                6
+              </td>
+<td>
+                Antigua and Barbuda
+              </td>
+</tr>
+<tr>
+<td>
+                3
+              </td>
+<td>
+                Abu Dhabi
+              </td>
+<td>
+                942000
+              </td>
+<td>
+                1
+              </td>
+<td>
+                184
+              </td>
+<td>
+                United Arab Emirates
+              </td>
+</tr>
+<tr>
+<td>
+                4
+              </td>
+<td>
+                Dubai
+              </td>
+<td>
+                1978000
+              </td>
+<td>
+                0
+              </td>
+<td>
+                184
+              </td>
+<td>
+                United Arab Emirates
+              </td>
+</tr>
+<tr>
+<td>
+                5
+              </td>
+<td>
+                Sharjah
+              </td>
+<td>
+                983000
+              </td>
+<td>
+                0
+              </td>
+<td>
+                184
+              </td>
+<td>
+                United Arab Emirates
+              </td>
+</tr>
+</tbody>
+</table></div>
+</p></div>
+</p></div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Practicing-Inner-Joins-in-SQL">
+        Practicing Inner Joins in SQL<a class="anchor-link" href="#Practicing-Inner-Joins-in-SQL"></a><br />
+      </h2>
+<p>
+        Let&#8217;s practice writing a query to answer a question from our database using an inner join. Say we want to produce a table of countries and their capital cities from our database using what we&#8217;ve learned so far. Our first step is to think about what columns we&#8217;ll need in our final query. We&#8217;ll need:
+      </p>
+<ul>
+<li>
+          The <code>name</code> column from <code>facts</code>
+        </li>
+<li>
+          The <code>name</code> column from <code>cities</code>
+        </li>
+</ul>
+<p>
+        Given that we&#8217;ve identified that we need data from two tables, we need to think about how to join them. The schema diagram from earlier indicated that there is only one column in each table that links them together, so we can use an inner join with those columns to join the data.
+      </p>
+<p>
+        So far, thinking through our question we can already write most of our query (it&#8217;s almost identical to the previous query we wrote):
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
+    <span class="k">c</span><span class="p">.</span><span class="n">name</span>
+<span class="k">FROM</span> <span class="n">cities</span> <span class="k">c</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">facts</span> <span class="n">f</span> <span class="k">ON</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span><span class="p">;</span>
+</pre>
+</p></div>
+<p>
+        The last part of our process is to make sure we have the correct rows. From the previous two screens we know that a query like this will return all rows from <code>cities</code> that have a corresponding match from <code>facts</code> in the <code>facts_id</code> column. We&#8217;re only interested in the capital cities from the cities table, so we&#8217;ll need to use a <code>WHERE</code> clause on the <code>capital</code> column, which has a value of <code>1</code> if the city is a capital, and <code>0</code> if it isn&#8217;t:
+      </p>
+<div class="highlight">
+<pre><span class="k">WHERE</span> <span class="k">c</span><span class="p">.</span><span class="n">capital</span> <span class="o">=</span> <span class="mi">1</span>
+</pre>
+</p></div>
+<p>
+        We can now put this all together to write a query that answers our question. We&#8217;ll limit it to just the first 10 rows so the amount of output is managable.
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">name</span> <span class="n">country</span><span class="p">,</span>
+    <span class="k">c</span><span class="p">.</span><span class="n">name</span> <span class="n">capital_city</span>
+<span class="k">FROM</span> <span class="n">cities</span> <span class="k">c</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">facts</span> <span class="n">f</span> <span class="k">ON</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span>
+<span class="k">WHERE</span> <span class="k">c</span><span class="p">.</span><span class="n">capital</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
+</pre>
+</p></div>
+<div style="max-height:500px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+                country
+              </th>
+<th>
+                capital_city
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+                Aruba
+              </td>
+<td>
+                Oranjestad
+              </td>
+</tr>
+<tr>
+<td>
+                Antigua and Barbuda
+              </td>
+<td>
+                Saint John&#8217;S
+              </td>
+</tr>
+<tr>
+<td>
+                United Arab Emirates
+              </td>
+<td>
+                Abu Dhabi
+              </td>
+</tr>
+<tr>
+<td>
+                Afghanistan
+              </td>
+<td>
+                Kabul
+              </td>
+</tr>
+<tr>
+<td>
+                Algeria
+              </td>
+<td>
+                Algiers
+              </td>
+</tr>
+<tr>
+<td>
+                Azerbaijan
+              </td>
+<td>
+                Baku
+              </td>
+</tr>
+<tr>
+<td>
+                Albania
+              </td>
+<td>
+                Tirana
+              </td>
+</tr>
+<tr>
+<td>
+                Armenia
+              </td>
+<td>
+                Yerevan
+              </td>
+</tr>
+<tr>
+<td>
+                Andorra
+              </td>
+<td>
+                Andorra La Vella
+              </td>
+</tr>
+<tr>
+<td>
+                Angola
+              </td>
+<td>
+                Luanda
+              </td>
+</tr>
+</tbody>
+</table></div>
+</p></div>
+</p></div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Left-Joins-in-SQL">
+        Left Joins in SQL<a class="anchor-link" href="#Left-Joins-in-SQL"></a><br />
+      </h2>
+<p>
+        As we mentioned earlier, an inner join will not include any rows where there is not a mutual match from both tables. This means there could be information we are not seeing in our query where rows don&#8217;t match.
+      </p>
+<p>
+        We can use SQL queries to explore this:
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="p">(</span><span class="n">name</span><span class="p">))</span> <span class="k">FROM</span> <span class="n">facts</span><span class="p">;</span>
+</pre>
+</p></div>
+<table>
+<th>
+          count
+        </th>
+<tr>
+<td>
+            261
+          </td>
+</tr>
+</table>
+<div class="highlight">
+<pre><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="p">(</span><span class="n">facts_id</span><span class="p">))</span> <span class="k">FROM</span> <span class="n">cities</span><span class="p">;</span>
+</pre>
+</p></div>
+<table>
+<th>
+          count
+        </th>
+<tr>
+<td>
+            210
+          </td>
+</tr>
+</table>
+<p>
+        By running these two queries, we can see that there are some countries in the <code>facts</code> table that don&#8217;t have corresponding cities in the <code>cities</code> table, which indicates we may have some incomplete data.
+      </p>
+<p>
+        Let&#8217;s look at how we can create a query to explore the missing data using a new type of join— the <strong>left join</strong>.
+      </p>
+<p>
+        A left join includes all the rows that an inner join will select, plus any rows from the first (or left) table that don&#8217;t have a match in the second table. We can see this represented as a Venn diagram.
+      </p>
+<p>
+        <noscript><img src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/venn_left.svg" alt="Venn diagram left join" /></noscript><img class="lazyload" src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20%20%22%3E%3C/svg%3E' data-src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/venn_left.svg" alt="Venn diagram left join" />
+      </p>
+<p>
+        Let&#8217;s look at an example by replacing <code>INNER JOIN</code> with <code>LEFT JOIN</code> from the first query we wrote, and looking at the same selection of rows from our earlier diagram
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">facts</span>
+<span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">cities</span> <span class="k">ON</span> <span class="n">cities</span><span class="p">.</span><span class="n">facts_id</span> <span class="o">=</span> <span class="n">facts</span><span class="p">.</span><span class="n">id</span>
+</pre>
+</p></div>
+<p>
+        <noscript><img src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/left_join.svg" alt="left join" /></noscript><img class="lazyload" src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20%20%22%3E%3C/svg%3E' data-src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/left_join.svg" alt="left join" />
+      </p>
+<p>
+        Here we can see that for the rows where <code>facts.id</code> doesn&#8217;t match any values in <code>cities.facts_id</code> (237, 238, 240, and 244), the rows are still included in the results. When this happens, all of the columns from the <code>cities</code> table are populated with null values.
+      </p>
+<p>
+        We can use these null values to filter our results to just the countries that don&#8217;t exist in <code>cities</code> with a <code>WHERE</code> clause. When making a comparison to null in SQL, we use the <code>IS</code> keyword, rather than the <code>=</code> sign. If we want to select rows where a column is null we can write:
+      </p>
+<div class="highlight">
+<pre><span class="k">WHERE</span> <span class="k">column_name</span> <span class="k">IS</span> <span class="k">NULL</span>
+</pre>
+</p></div>
+<p>
+        If we want to select rows where a column name isn&#8217;t null, we use:
+      </p>
+<div class="highlight">
+<pre><span class="k">WHERE</span> <span class="k">column_name</span> <span class="k">IS</span> <span class="k">NOT</span> <span class="k">NULL</span>
+</pre>
+</p></div>
+<p>
+        Let&#8217;s use a left join to explore the countries that don&#8217;t exist in the <code>cities</code> table.
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">name</span> <span class="n">country</span><span class="p">,</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">population</span>
+<span class="k">FROM</span> <span class="n">facts</span> <span class="n">f</span>
+<span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">cities</span> <span class="k">c</span> <span class="k">ON</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span>
+<span class="k">WHERE</span> <span class="k">c</span><span class="p">.</span><span class="n">name</span> <span class="k">IS</span> <span class="k">NULL</span><span class="p">;</span>
+</pre>
+</p></div>
+<div style="max-height:500px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+                country
+              </th>
+<th>
+                population
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+                Kosovo
+              </td>
+<td>
+                1870981
+              </td>
+</tr>
+<tr>
+<td>
+                Monaco
+              </td>
+<td>
+                30535
+              </td>
+</tr>
+<tr>
+<td>
+                Nauru
+              </td>
+<td>
+                9540
+              </td>
+</tr>
+<tr>
+<td>
+                San Marino
+              </td>
+<td>
+                33020
+              </td>
+</tr>
+<tr>
+<td>
+                Singapore
+              </td>
+<td>
+                5674472
+              </td>
+</tr>
+<tr>
+<td>
+                Holy See (Vatican City)
+              </td>
+<td>
+                842
+              </td>
+</tr>
+<tr>
+<td>
+                Taiwan
+              </td>
+<td>
+                23415126
+              </td>
+</tr>
+<tr>
+<td>
+                European Union
+              </td>
+<td>
+                513949445
+              </td>
+</tr>
+<tr>
+<td>
+                Ashmore and Cartier Islands
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Christmas Island
+              </td>
+<td>
+                1530
+              </td>
+</tr>
+<tr>
+<td>
+                Cocos (Keeling) Islands
+              </td>
+<td>
+                596
+              </td>
+</tr>
+<tr>
+<td>
+                Coral Sea Islands
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Heard Island and McDonald Islands
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Norfolk Island
+              </td>
+<td>
+                2210
+              </td>
+</tr>
+<tr>
+<td>
+                Hong Kong
+              </td>
+<td>
+                7141106
+              </td>
+</tr>
+<tr>
+<td>
+                Macau
+              </td>
+<td>
+                592731
+              </td>
+</tr>
+<tr>
+<td>
+                Clipperton Island
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                French Southern and Antarctic Lands
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Saint Barthelemy
+              </td>
+<td>
+                7237
+              </td>
+</tr>
+<tr>
+<td>
+                Saint Martin
+              </td>
+<td>
+                31754
+              </td>
+</tr>
+<tr>
+<td>
+                Curacao
+              </td>
+<td>
+                148406
+              </td>
+</tr>
+<tr>
+<td>
+                Sint Maarten
+              </td>
+<td>
+                39689
+              </td>
+</tr>
+<tr>
+<td>
+                Cook Islands
+              </td>
+<td>
+                9838
+              </td>
+</tr>
+<tr>
+<td>
+                Niue
+              </td>
+<td>
+                1190
+              </td>
+</tr>
+<tr>
+<td>
+                Tokelau
+              </td>
+<td>
+                1337
+              </td>
+</tr>
+<tr>
+<td>
+                Bouvet Island
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Jan Mayen
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Svalbard
+              </td>
+<td>
+                1872
+              </td>
+</tr>
+<tr>
+<td>
+                Akrotiri
+              </td>
+<td>
+                15700
+              </td>
+</tr>
+<tr>
+<td>
+                British Indian Ocean Territory
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Dhekelia
+              </td>
+<td>
+                15700
+              </td>
+</tr>
+<tr>
+<td>
+                Gibraltar
+              </td>
+<td>
+                29258
+              </td>
+</tr>
+<tr>
+<td>
+                Guernsey
+              </td>
+<td>
+                66080
+              </td>
+</tr>
+<tr>
+<td>
+                Jersey
+              </td>
+<td>
+                97294
+              </td>
+</tr>
+<tr>
+<td>
+                Montserrat
+              </td>
+<td>
+                5241
+              </td>
+</tr>
+<tr>
+<td>
+                Pitcairn Islands
+              </td>
+<td>
+                48
+              </td>
+</tr>
+<tr>
+<td>
+                South Georgia and South Sandwich Islands
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Navassa Island
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Wake Island
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                United States Pacific Island Wildlife Refuges
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Antarctica
+              </td>
+<td>
+                0
+              </td>
+</tr>
+<tr>
+<td>
+                Gaza Strip
+              </td>
+<td>
+                1869055
+              </td>
+</tr>
+<tr>
+<td>
+                Paracel Islands
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Spratly Islands
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                West Bank
+              </td>
+<td>
+                2785366
+              </td>
+</tr>
+<tr>
+<td>
+                Arctic Ocean
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Atlantic Ocean
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Indian Ocean
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Pacific Ocean
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                Southern Ocean
+              </td>
+<td>
+              </td>
+</tr>
+<tr>
+<td>
+                World
+              </td>
+<td>
+                7256490011
+              </td>
+</tr>
+</tbody>
+</table></div>
+</p></div>
+</p></div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>
+        Looking through the results of the query we wrote in the previous screen, we can see a number of different reasons that countries don&#8217;t have corresponding values in <code>cities</code>:
+      </p>
+<ul>
+<li>
+          Countries with small populations and/or no major urban areas (which are defined as having populations of over 750,000), eg San Marino, Kosovo, and Nauru.
+        </li>
+<li>
+          City-states, such as Monaco and Singapore.
+        </li>
+<li>
+          Territories that are not themselves countries, such as Hong Kong, Gibraltar, and the Cook Islands.
+        </li>
+<li>
+          Regions &#038; Oceans that aren&#8217;t countries, such as the European Union and the Pacific Ocean.
+        </li>
+<li>
+          Genuine cases of missing data, such as Taiwan.
+        </li>
+</ul>
+<p>
+        It&#8217;s important whenever you use inner joins to be mindful that you might be excluding important data, especially if you are joining based on columns that aren&#8217;t linked in the database schema.
+      </p>
+<h2 id="Right-Joins-and-Outer-Joins">
+        Right Joins and Outer Joins<a class="anchor-link" href="#Right-Joins-and-Outer-Joins"></a><br />
+      </h2>
+<p>
+        There are two less-common join types SQLite does not support that you should be aware of. The first is a <strong>right join</strong>. A right join, as the name indicates, is exactly the opposite of a left join. While the left join includes all rows in the table <em>before</em> the <code>JOIN</code> clause, the right join includes all rows in the new table <em>in</em> the <code>JOIN</code> clause. We can see a right join in the Venn diagram below:
+      </p>
+<p>
+        <noscript><img src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/venn_right.svg" alt="Venn diagram of a right join" /></noscript><img class="lazyload" src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20%20%22%3E%3C/svg%3E' data-src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/venn_right.svg" alt="Venn diagram of a right join" />
+      </p>
+<p>
+        The following two queries, one using a left join and one using a right join, produce identical results.
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span> <span class="n">f</span><span class="p">.</span><span class="n">name</span> <span class="n">country</span><span class="p">,</span> <span class="k">c</span><span class="p">.</span><span class="n">name</span> <span class="n">city</span>
+<span class="k">FROM</span> <span class="n">facts</span> <span class="n">f</span>
+<span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">cities</span> <span class="k">c</span> <span class="k">ON</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span>
+<span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+</pre>
+</p></div>
+<div class="highlight">
+<pre><span class="k">SELECT</span> <span class="n">f</span><span class="p">.</span><span class="n">name</span> <span class="n">country</span><span class="p">,</span> <span class="k">c</span><span class="p">.</span><span class="n">name</span> <span class="n">city</span>
+<span class="k">FROM</span> <span class="n">cities</span> <span class="k">c</span>
+<span class="k">RIGHT</span> <span class="k">JOIN</span> <span class="n">facts</span> <span class="n">f</span> <span class="k">ON</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span>
+<span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+</pre>
+</p></div>
+<p>
+        The main reason a right join would be used is when you are joining more than two tables. In these cases, using a right join is preferable because it can avoid restructuring your whole query to join one table. Outside of this, right joins are used reasonably rarely, so for simple joins it&#8217;s better to use a left join than a right as it will be easier for your query to be read and understood by others.
+      </p>
+<p>
+        The other join type not supported by SQLite is a <strong>full outer join</strong>. A full outer join will include all rows from the tables on both sides of the join. We can see a full outer join in the Venn diagram below:
+      </p>
+<p>
+        <noscript><img src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/venn_full.svg" alt="Venn diagram of a full outer join" /></noscript><img class="lazyload" src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20%20%22%3E%3C/svg%3E' data-src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/venn_full.svg" alt="Venn diagram of a full outer join" />
+      </p>
+<p>
+        Like right joins, full outer joins are reasonably uncommon. The standard SQL syntax for a full outer join is:
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span> <span class="n">f</span><span class="p">.</span><span class="n">name</span> <span class="n">country</span><span class="p">,</span> <span class="k">c</span><span class="p">.</span><span class="n">name</span> <span class="n">city</span>
+<span class="k">FROM</span> <span class="n">cities</span> <span class="k">c</span>
+<span class="k">FULL</span> <span class="k">OUTER</span> <span class="k">JOIN</span> <span class="n">facts</span> <span class="n">f</span> <span class="k">ON</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span>
+<span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+</pre>
+</p></div>
+<p>
+        When joining <code>cities</code> and <code>facts</code> with a full outer join, the result will be be the same as our left and right joins above, because there are no values in <code>cities.facts_id</code> that don&#8217;t exist in <code>facts.id</code>.
+      </p>
+<p>
+        Let&#8217;s look at the Venn diagrams of each join type side by side, which should help you compare the differences of each of the four joins we&#8217;ve discussed so far.
+      </p>
+<p>
+        <noscript><img src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/join_venn_diagram.svg" alt="Join Venn Diagram" /></noscript><img class="lazyload" src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20%20%22%3E%3C/svg%3E' data-src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/join_venn_diagram.svg" alt="Join Venn Diagram" />
+      </p>
+<p>
+        Next, let&#8217;s practice using joins to answer some questions about our data.
+      </p>
+</p></div>
+</p></div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Finding-the-Most-Populous-Capital-Cities">
+        Finding the Most Populous Capital Cities<a class="anchor-link" href="#Finding-the-Most-Populous-Capital-Cities"></a><br />
+      </h2>
+<p>
+        Previously, we&#8217;ve used column names when specifying order for our query results, like so:
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span>
+    <span class="n">name</span><span class="p">,</span>
+    <span class="n">migration_rate</span>
+<span class="k">FROM</span> <span class="n">facts</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">migration_rate</span> <span class="k">desc</span><span class="p">;</span>
+</pre>
+</p></div>
+<p>
+        There is a handy shortcut we can use in our queries which lets us skip the column names, and instead use the order in which the columns appear in the <code>SELECT</code> clause. In this instance, <code>migration_rate</code> is the second column in our <code>SELECT</code> clause so we can just use <code>2</code> instead of the column name:
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span>
+    <span class="n">name</span><span class="p">,</span>
+    <span class="n">migration_rate</span>
+<span class="k">FROM</span> <span class="n">facts</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">2</span> <span class="k">desc</span><span class="p">;</span>
+</pre>
+</p></div>
+<p>
+        You can use this shortcut in either the <code>ORDER BY</code> or <code>GROUP BY</code> clauses. Be mindful that you want to ensure your queries are still readable, so typing the full column name may be better for more complex queries.
+      </p>
+<p>
+        Let&#8217;s use what we&#8217;ve learned to produce a list of the top 10 capital cities by population. Because we are not interested in countries from <code>facts</code> that don&#8217;t have corresponding cities in <code>cities</code>, we should use an <code>INNER JOIN</code>.
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span>
+    <span class="k">c</span><span class="p">.</span><span class="n">name</span> <span class="n">capital_city</span><span class="p">,</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">name</span> <span class="n">country</span><span class="p">,</span>
+    <span class="k">c</span><span class="p">.</span><span class="n">population</span>
+<span class="k">FROM</span> <span class="n">facts</span> <span class="n">f</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="n">cities</span> <span class="k">c</span> <span class="k">ON</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span>
+<span class="k">WHERE</span> <span class="k">c</span><span class="p">.</span><span class="n">capital</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">3</span> <span class="k">DESC</span>
+<span class="k">LIMIT</span> <span class="mi">10</span><span class="p">;</span>
+</pre>
+</p></div>
+<div style="max-height:500px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+                capital_city
+              </th>
+<th>
+                country
+              </th>
+<th>
+                population
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+                Tokyo
+              </td>
+<td>
+                Japan
+              </td>
+<td>
+                37217000
+              </td>
+</tr>
+<tr>
+<td>
+                New Delhi
+              </td>
+<td>
+                India
+              </td>
+<td>
+                22654000
+              </td>
+</tr>
+<tr>
+<td>
+                Mexico City
+              </td>
+<td>
+                Mexico
+              </td>
+<td>
+                20446000
+              </td>
+</tr>
+<tr>
+<td>
+                Beijing
+              </td>
+<td>
+                China
+              </td>
+<td>
+                15594000
+              </td>
+</tr>
+<tr>
+<td>
+                Dhaka
+              </td>
+<td>
+                Bangladesh
+              </td>
+<td>
+                15391000
+              </td>
+</tr>
+<tr>
+<td>
+                Buenos Aires
+              </td>
+<td>
+                Argentina
+              </td>
+<td>
+                13528000
+              </td>
+</tr>
+<tr>
+<td>
+                Manila
+              </td>
+<td>
+                Philippines
+              </td>
+<td>
+                11862000
+              </td>
+</tr>
+<tr>
+<td>
+                Moscow
+              </td>
+<td>
+                Russia
+              </td>
+<td>
+                11621000
+              </td>
+</tr>
+<tr>
+<td>
+                Cairo
+              </td>
+<td>
+                Egypt
+              </td>
+<td>
+                11169000
+              </td>
+</tr>
+<tr>
+<td>
+                Jakarta
+              </td>
+<td>
+                Indonesia
+              </td>
+<td>
+                9769000
+              </td>
+</tr>
+</tbody>
+</table></div>
+</p></div>
+</p></div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Combining-SQL-Joins-with-Subqueries">
+        Combining SQL Joins with Subqueries<a class="anchor-link" href="#Combining-SQL-Joins-with-Subqueries"></a><br />
+      </h2>
+<p>
+        Subqueries can be used to substitute parts of queries, allowing us to find the answers to more complex questions. We can also join to the result of a subquery, just like we could a table.
+      </p>
+<p>
+        Here&#8217;s an example of a using a join and a subquery to produce a table of countries and their capital cities, like we did earlier in the mission.
+      </p>
+<p>
+        <noscript><img src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/explain_subquery.svg" alt="subqueries" /></noscript><img class="lazyload" src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20%20%22%3E%3C/svg%3E' data-src="https://dq-blog-files.s3.amazonaws.com/joins-tutorial/explain_subquery.svg" alt="subqueries" />
+      </p>
+<p>
+        Reading subqueries can be overwhelming at first, so we&#8217;ll break down what happens in this example in several steps. The important thing to remember is that the result of any subquery is always calculated first, so we read from the inside out.
+      </p>
+<ul>
+<li>
+          The subquery, in the red box, is calculated first. This simple query selects all columns from <code>cities</code>, filtering rows that are marked as capital cities by having a value for <code>capital</code> of 1.
+        </li>
+<li>
+          The <code>INNER JOIN</code> joins the subquery result, aliased as <code>c</code>, to the <code>facts</code> table based on the <code>ON</code> clause.
+        </li>
+<li>
+          Two columns are selected from the results of the join:</p>
+<ul>
+<li>
+              <code>f.name</code>, aliased as <code>country</code>.
+            </li>
+<li>
+              <code>c.name</code>, aliased as <code>capital_city</code>.
+            </li>
+</ul>
+</li>
+<li>
+          The results are limited to the first 10 rows.
+        </li>
+</ul>
+<p>
+        Below is the output of this query:
+      </p>
+<div style="max-height:500px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+                country
+              </th>
+<th>
+                capital_city
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+                Aruba
+              </td>
+<td>
+                Oranjestad
+              </td>
+</tr>
+<tr>
+<td>
+                Antigua and Barbuda
+              </td>
+<td>
+                Saint John&#8217;S
+              </td>
+</tr>
+<tr>
+<td>
+                United Arab Emirates
+              </td>
+<td>
+                Abu Dhabi
+              </td>
+</tr>
+<tr>
+<td>
+                Afghanistan
+              </td>
+<td>
+                Kabul
+              </td>
+</tr>
+<tr>
+<td>
+                Algeria
+              </td>
+<td>
+                Algiers
+              </td>
+</tr>
+<tr>
+<td>
+                Azerbaijan
+              </td>
+<td>
+                Baku
+              </td>
+</tr>
+<tr>
+<td>
+                Albania
+              </td>
+<td>
+                Tirana
+              </td>
+</tr>
+<tr>
+<td>
+                Armenia
+              </td>
+<td>
+                Yerevan
+              </td>
+</tr>
+<tr>
+<td>
+                Andorra
+              </td>
+<td>
+                Andorra La Vella
+              </td>
+</tr>
+<tr>
+<td>
+                Angola
+              </td>
+<td>
+                Luanda
+              </td>
+</tr>
+</tbody>
+</table></div>
+<p>
+        Using this example as a model, we&#8217;ll write a similar query to find non-capital cities with populations of over 10 million.
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span>
+    <span class="k">c</span><span class="p">.</span><span class="n">name</span> <span class="n">city</span><span class="p">,</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">name</span> <span class="n">country</span><span class="p">,</span>
+    <span class="k">c</span><span class="p">.</span><span class="n">population</span> <span class="n">population</span>
+<span class="k">FROM</span> <span class="n">facts</span> <span class="n">f</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="p">(</span>
+            <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">cities</span>
+            <span class="k">WHERE</span> <span class="n">capital</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">AND</span> <span class="n">population</span> <span class="o">&gt;</span> <span class="mi">10000000</span>
+           <span class="p">)</span> <span class="k">c</span> <span class="k">ON</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">3</span> <span class="k">DESC</span><span class="p">;</span>
+</pre>
+</p></div>
+<div style="max-height:500px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+                city
+              </th>
+<th>
+                country
+              </th>
+<th>
+                population
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+                New York-Newark
+              </td>
+<td>
+                United States
+              </td>
+<td>
+                20352000
+              </td>
+</tr>
+<tr>
+<td>
+                Shanghai
+              </td>
+<td>
+                China
+              </td>
+<td>
+                20208000
+              </td>
+</tr>
+<tr>
+<td>
+                Sao Paulo
+              </td>
+<td>
+                Brazil
+              </td>
+<td>
+                19924000
+              </td>
+</tr>
+<tr>
+<td>
+                Mumbai
+              </td>
+<td>
+                India
+              </td>
+<td>
+                19744000
+              </td>
+</tr>
+<tr>
+<td>
+                Marseille-Aix-en-Provence
+              </td>
+<td>
+                France
+              </td>
+<td>
+                14890100
+              </td>
+</tr>
+<tr>
+<td>
+                Kolkata
+              </td>
+<td>
+                India
+              </td>
+<td>
+                14402000
+              </td>
+</tr>
+<tr>
+<td>
+                Karachi
+              </td>
+<td>
+                Pakistan
+              </td>
+<td>
+                13876000
+              </td>
+</tr>
+<tr>
+<td>
+                Los Angeles-Long Beach-Santa Ana
+              </td>
+<td>
+                United States
+              </td>
+<td>
+                13395000
+              </td>
+</tr>
+<tr>
+<td>
+                Osaka-Kobe
+              </td>
+<td>
+                Japan
+              </td>
+<td>
+                11494000
+              </td>
+</tr>
+<tr>
+<td>
+                Istanbul
+              </td>
+<td>
+                Turkey
+              </td>
+<td>
+                11253000
+              </td>
+</tr>
+<tr>
+<td>
+                Lagos
+              </td>
+<td>
+                Nigeria
+              </td>
+<td>
+                11223000
+              </td>
+</tr>
+<tr>
+<td>
+                Guangzhou
+              </td>
+<td>
+                China
+              </td>
+<td>
+                10849000
+              </td>
+</tr>
+</tbody>
+</table></div>
+</p></div>
+</p></div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="SQL-Challenge:-Complex-Query-with-Joins-and-Subqueries">
+        SQL Challenge: Complex Query with Joins and Subqueries<a class="anchor-link" href="#SQL-Challenge:-Complex-Query-with-Joins-and-Subqueries"></a><br />
+      </h2>
+<p>
+        Let&#8217;s take everything we&#8217;ve learned before and use it to write a more complex query. It&#8217;s not uncommon to find that &#8216;thinking in SQL&#8217; takes a bit of getting used to, so don&#8217;t be discouraged if this query seems difficult to understand at first. It will get easier with practice!
+      </p>
+<p>
+        When you&#8217;re writing complex queries with joins and subqueries, it helps to follow this process:
+      </p>
+<ul>
+<li>
+          Think about what data you need in your final output
+        </li>
+<li>
+          Work out which tables you&#8217;ll need to join, and whether you will need to join to a subquery.</p>
+<ul>
+<li>
+              If you need to join to a subquery, write the subquery first.
+            </li>
+</ul>
+</li>
+<li>
+          Then start writing your <code>SELECT</code> clause, followed by the join and any other clauses you will need.
+        </li>
+<li>
+          Don&#8217;t be afraid to write your query in steps, running it as you go— for instance you can run your subquery as a &#8216;stand alone&#8217; query first to make sure it looks like you want before writing the outer query.
+        </li>
+</ul>
+<p>
+        We will be writing a query to find the countries where the urban center (city) population is more than half of the country&#8217;s total population. There are multiple ways to write this query but we&#8217;ll step through one approach.
+      </p>
+<p>
+        We can start by writing a query to sum all the urban populations for cities in each country. We can do this without a join by grouping on the <code>facts_id</code> (we&#8217;ll use a limit in our example below to make the output managable):
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span>
+    <span class="n">facts_id</span><span class="p">,</span>
+    <span class="k">SUM</span><span class="p">(</span><span class="n">population</span><span class="p">)</span> <span class="n">urban_pop</span>
+<span class="k">FROM</span> <span class="n">cities</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span>
+<span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+</pre>
+</p></div>
+<div style="max-height:500px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+                facts_id
+              </th>
+<th>
+                urban_pop
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+                1
+              </td>
+<td>
+                3097000
+              </td>
+</tr>
+<tr>
+<td>
+                10
+              </td>
+<td>
+                172000
+              </td>
+</tr>
+<tr>
+<td>
+                100
+              </td>
+<td>
+                1127000
+              </td>
+</tr>
+<tr>
+<td>
+                101
+              </td>
+<td>
+                5000
+              </td>
+</tr>
+<tr>
+<td>
+                102
+              </td>
+<td>
+                546000
+              </td>
+</tr>
+</tbody>
+</table></div>
+<p>
+        Next, we&#8217;ll join the <code>facts</code> table to that subquery, selecting the country name, urban population and total population (again, we&#8217;ve used a limit to keep things tidy):
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">name</span> <span class="n">country</span><span class="p">,</span>
+    <span class="k">c</span><span class="p">.</span><span class="n">urban_pop</span><span class="p">,</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">population</span> <span class="n">total_pop</span>
+<span class="k">FROM</span> <span class="n">facts</span> <span class="n">f</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="p">(</span>
+            <span class="k">SELECT</span>
+                <span class="n">facts_id</span><span class="p">,</span>
+                <span class="k">SUM</span><span class="p">(</span><span class="n">population</span><span class="p">)</span> <span class="n">urban_pop</span>
+            <span class="k">FROM</span> <span class="n">cities</span>
+            <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span>
+           <span class="p">)</span> <span class="k">c</span> <span class="k">ON</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span>
+<span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+</pre>
+</p></div>
+<div style="max-height:500px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+                country
+              </th>
+<th>
+                urban_pop
+              </th>
+<th>
+                total_pop
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+                Afghanistan
+              </td>
+<td>
+                3097000
+              </td>
+<td>
+                32564342
+              </td>
+</tr>
+<tr>
+<td>
+                Austria
+              </td>
+<td>
+                172000
+              </td>
+<td>
+                8665550
+              </td>
+</tr>
+<tr>
+<td>
+                Libya
+              </td>
+<td>
+                1127000
+              </td>
+<td>
+                6411776
+              </td>
+</tr>
+<tr>
+<td>
+                Liechtenstein
+              </td>
+<td>
+                5000
+              </td>
+<td>
+                37624
+              </td>
+</tr>
+<tr>
+<td>
+                Lithuania
+              </td>
+<td>
+                546000
+              </td>
+<td>
+                2884433
+              </td>
+</tr>
+</tbody>
+</table></div>
+<p>
+        Lastly, we&#8217;ll create a new column that divides the urban population by the total population, and use a <code>WHERE</code> and <code>ORDER BY</code> to filter/rank the results:
+      </p>
+<div class="highlight">
+<pre><span class="k">SELECT</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">name</span> <span class="n">country</span><span class="p">,</span>
+    <span class="k">c</span><span class="p">.</span><span class="n">urban_pop</span><span class="p">,</span>
+    <span class="n">f</span><span class="p">.</span><span class="n">population</span> <span class="n">total_pop</span>
+<span class="k">FROM</span> <span class="n">facts</span> <span class="n">f</span>
+<span class="k">INNER</span> <span class="k">JOIN</span> <span class="p">(</span>
+            <span class="k">SELECT</span>
+                <span class="n">facts_id</span><span class="p">,</span>
+                <span class="k">SUM</span><span class="p">(</span><span class="n">population</span><span class="p">)</span> <span class="n">urban_pop</span>
+            <span class="k">FROM</span> <span class="n">cities</span>
+            <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span>
+           <span class="p">)</span> <span class="k">c</span> <span class="k">ON</span> <span class="k">c</span><span class="p">.</span><span class="n">facts_id</span> <span class="o">=</span> <span class="n">f</span><span class="p">.</span><span class="n">id</span>
+<span class="k">LIMIT</span> <span class="mi">5</span><span class="p">;</span>
+</pre>
+</p></div>
+<div style="max-height:500px;max-width:1500px;overflow:auto;">
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th>
+                country
+              </th>
+<th>
+                urban_pop
+              </th>
+<th>
+                total_pop
+              </th>
+<th>
+                urban_pct
+              </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+                Uruguay
+              </td>
+<td>
+                1672000
+              </td>
+<td>
+                3341893
+              </td>
+<td>
+                0.500315
+              </td>
+</tr>
+<tr>
+<td>
+                Congo, Republic of the
+              </td>
+<td>
+                2445000
+              </td>
+<td>
+                4755097
+              </td>
+<td>
+                0.514185
+              </td>
+</tr>
+<tr>
+<td>
+                Brunei
+              </td>
+<td>
+                241000
+              </td>
+<td>
+                429646
+              </td>
+<td>
+                0.560927
+              </td>
+</tr>
+<tr>
+<td>
+                New Caledonia
+              </td>
+<td>
+                157000
+              </td>
+<td>
+                271615
+              </td>
+<td>
+                0.578024
+              </td>
+</tr>
+<tr>
+<td>
+                Virgin Islands
+              </td>
+<td>
+                60000
+              </td>
+<td>
+                103574
+              </td>
+<td>
+                0.579296
+              </td>
+</tr>
+<tr>
+<td>
+                Falkland Islands (Islas Malvinas)
+              </td>
+<td>
+                2000
+              </td>
+<td>
+                3361
+              </td>
+<td>
+                0.595061
+              </td>
+</tr>
+<tr>
+<td>
+                Djibouti
+              </td>
+<td>
+                496000
+              </td>
+<td>
+                828324
+              </td>
+<td>
+                0.598800
+              </td>
+</tr>
+<tr>
+<td>
+                Australia
+              </td>
+<td>
+                13789000
+              </td>
+<td>
+                22751014
+              </td>
+<td>
+                0.606083
+              </td>
+</tr>
+<tr>
+<td>
+                Iceland
+              </td>
+<td>
+                206000
+              </td>
+<td>
+                331918
+              </td>
+<td>
+                0.620635
+              </td>
+</tr>
+<tr>
+<td>
+                Israel
+              </td>
+<td>
+                5226000
+              </td>
+<td>
+                8049314
+              </td>
+<td>
+                0.649248
+              </td>
+</tr>
+<tr>
+<td>
+                United Arab Emirates
+              </td>
+<td>
+                3903000
+              </td>
+<td>
+                5779760
+              </td>
+<td>
+                0.675288
+              </td>
+</tr>
+<tr>
+<td>
+                Puerto Rico
+              </td>
+<td>
+                2475000
+              </td>
+<td>
+                3598357
+              </td>
+<td>
+                0.687814
+              </td>
+</tr>
+<tr>
+<td>
+                Bahamas, The
+              </td>
+<td>
+                254000
+              </td>
+<td>
+                324597
+              </td>
+<td>
+                0.782509
+              </td>
+</tr>
+<tr>
+<td>
+                Kuwait
+              </td>
+<td>
+                2406000
+              </td>
+<td>
+                2788534
+              </td>
+<td>
+                0.862819
+              </td>
+</tr>
+<tr>
+<td>
+                Saint Pierre and Miquelon
+              </td>
+<td>
+                5000
+              </td>
+<td>
+                5657
+              </td>
+<td>
+                0.883861
+              </td>
+</tr>
+<tr>
+<td>
+                Guam
+              </td>
+<td>
+                169000
+              </td>
+<td>
+                161785
+              </td>
+<td>
+                1.044596
+              </td>
+</tr>
+<tr>
+<td>
+                Northern Mariana Islands
+              </td>
+<td>
+                56000
+              </td>
+<td>
+                52344
+              </td>
+<td>
+                1.069846
+              </td>
+</tr>
+<tr>
+<td>
+                American Samoa
+              </td>
+<td>
+                64000
+              </td>
+<td>
+                54343
+              </td>
+<td>
+                1.177705
+              </td>
+</tr>
+</tbody>
+</table></div>
+<p>
+        You can see that while our final query <em>is</em> complex, it&#8217;s much easier to understand if you build it step-by-step.
+      </p>
+</p></div>
+</p></div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="SQL-Joins-Tutorial:-Next-Steps">
+        SQL Joins Tutorial: Next Steps<a class="anchor-link" href="#SQL-Joins-Tutorial:-Next-Steps"></a><br />
+      </h2>
+<p>
+        In this sql joins tutorial we learned:
+      </p>
+<ul>
+<li>
+          The difference between inner and left joins.
+        </li>
+<li>
+          The role of right and outer joins
+        </li>
+<li>
+          How to choose which join is appropriate for your task.
+        </li>
+<li>
+          Using joins with subqueries, aggregate functions, and other SQL techniques.
+        </li>
+</ul>
+<p>
+        If you&#8217;d like to follow along with an interactive version of this tutorial you can complete the first mission of our <a href="https://www.dataquest.io/course/sql-joins-relations/">SQL Intermediate</a> course for free!
+      </p>
+</p></div>
+</p></div>
+</div>
+<span style="display:none" class="tl-placeholder-f-type-shortcode_21375"></span>
+<span id="tho-end-content" style="display: block; visibility: hidden;"></span><span id="tve_leads_end_content" style="display: block; visibility: hidden; border: 1px solid transparent;"></span><div class="saboxplugin-wrap" itemtype="http://schema.org/Person" itemscope itemprop="author"><div class="saboxplugin-gravatar"><noscript><img src="https://secure.gravatar.com/avatar/488062fe3e2d6bbf1da752fa6d89c37f?s=100&#038;d=identicon&#038;r=g" width="100" height="100" alt="Avatar" class="avatar avatar-100 wp-user-avatar wp-user-avatar-100 photo avatar-default" /></noscript><img src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22%3E%3C/svg%3E' data-src="https://secure.gravatar.com/avatar/488062fe3e2d6bbf1da752fa6d89c37f?s=100&#038;d=identicon&#038;r=g" width="100" height="100" alt="Avatar" class="lazyload avatar avatar-100 wp-user-avatar wp-user-avatar-100 photo avatar-default" /></div><div class="saboxplugin-authorname"><a href="https://www.dataquest.io/blog/author/josh-devlin/" class="vcard author" rel="author" itemprop="url"><span class="fn" itemprop="name">Josh Devlin</span></a></div><div class="saboxplugin-desc"><div itemprop="description"><p>Data Scientist at Dataquest.io. Loves Data and Aussie Rules Football. Australian living in Texas.</p>
+</div></div><div class="clearfix"></div></div>
+		<div class="clear"></div>
+				<div class="clear"></div>
+							<footer>
+				<ul class="meta left">
+					<li>
+																											in																<span>
+                                        <a href="https://www.dataquest.io/blog/topics/data-science-tutorials/">
+	                                        Data Science Tutorials                                        </a>
+									                                    </span>
+																				
+																				by <a
+								href="https://www.dataquest.io/blog/author/josh-devlin/">Josh Devlin</a>
+											</li>
+																		<li class="sep">|</li>
+												<li>
+															November 18, 2019													</li>
+														</ul>
+								<div class="clear"></div>
+			</footer>
+					</div>
+
+</article>
+<div class="rltpi clearfix">
+	<div class="awr">
+		<h5>Related Posts</h5>
+					<a href="https://www.dataquest.io/blog/excel-vs-python/" class="rlt left">
+				<div class="rlti"  style="background-image: url('https://www.dataquest.io/wp-content/uploads/2019/02/xlwings-tutorial-python-excel-510x162.jpg')"></div>
+				<p>Excel vs Python: How to Do Common Data Analysis Tasks</p>
+			</a>
+					<a href="https://www.dataquest.io/blog/python-list-tutorial/" class="rlt left">
+				<div class="rlti"  style="background-image: url('https://www.dataquest.io/wp-content/uploads/2019/07/learn-python-tutorials-510x162.jpg')"></div>
+				<p>Python List Tutorial: Lists, Loops, and More!</p>
+			</a>
+					<a href="https://www.dataquest.io/blog/data-pipelines-tutorial/" class="rlt left">
+				<div class="rlti"  style="background-image: url('https://www.dataquest.io/wp-content/uploads/data-pipeline.png')"></div>
+				<p>Tutorial: Building An Analytics Data Pipeline In Python</p>
+			</a>
+					<a href="https://www.dataquest.io/blog/python-datetime-tutorial/" class="rlt left">
+				<div class="rlti"  style="background-image: url('https://www.dataquest.io/wp-content/uploads/2019/10/python-datetime-tutorial-510x162.jpg')"></div>
+				<p>Python Datetime Tutorial: Manipulate Times, Dates, and Time Spans</p>
+			</a>
+					</div>
+</div><div class="spr"></div>																					
+	<script type="text/javascript">
+		_thriveCurrentPost = 21484;
+	</script>
+	<article id="comments">
+		<div class="awr">
+			
+			
+			<div id="thrive_container_list_comments">
+							</div>
+
+			
+					</div>
+	</article>
+	<div id="comment-bottom"></div>
+
+																			</section>
+			</div>
+			
+	<div class="sAsCont">
+		<aside class="sAs right">
+							<section id="custom_html-2"><div class="widget_text scn"><div class="textwidget custom-html-widget"><span style="display:none" class="tl-placeholder-f-type-shortcode_11317"></span></div></div></section><section id="search-3"><div class="scn"><form action="https://www.dataquest.io/" method="get" class="srh">
+	<div>
+		<input type="text" placeholder="Search" class="search-field" name="s"/>
+		<button type="submit" class="search-button sBn"></button>
+		<div class="clear"></div>
+	</div>
+</form>
+</div></section><section id="nav_menu-3"><div class="scn"><p class="ttl">Browse the blog:</p><div class="menu-left-container"><ul id="menu-left" class="menu"><li id="menu-item-14042" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14042"><a href="https://www.dataquest.io/blog/data-science-career-guide/">Job Application Guide</a></li>
+<li id="menu-item-5973" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-5973"><a href="https://www.dataquest.io/blog/topics/data-science-tutorials/">Tutorials</a></li>
+<li id="menu-item-5978" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5978"><a href="https://www.dataquest.io/blog/topics/student-stories/">Student Stories</a></li>
+<li id="menu-item-5974" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5974"><a href="https://www.dataquest.io/blog/topics/learning-and-motivation/">Learning and Motivation</a></li>
+<li id="menu-item-5979" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5979"><a href="https://www.dataquest.io/blog/topics/building-a-data-science-portfolio/">How to Build a Portfolio</a></li>
+<li id="menu-item-5977" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5977"><a href="https://www.dataquest.io/blog/topics/data-science-projects/">Data Science Projects</a></li>
+</ul></div></div></section><section id="nav_menu-10"><div class="scn"><p class="ttl">More resources:</p><div class="menu-more-resources-container"><ul id="menu-more-resources" class="menu"><li id="menu-item-19385" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19385"><a href="https://www.dataquest.io/data-science-courses/">Data Science Courses</a></li>
+<li id="menu-item-19386" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19386"><a href="https://www.dataquest.io/python-tutorials-for-data-science/">Python Tutorials</a></li>
+<li id="menu-item-19388" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19388"><a href="https://www.dataquest.io/blog/data-analyst-data-scientist-data-engineer/">Data Analyst vs. Scientist vs. Engineer</a></li>
+</ul></div></div></section>			
+		</aside>
+	</div>
+
+		<div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>
+
+
+
+<footer>
+			<div class="ftw" id="dq_footer">
+			<div class="wrp cnt">
+									<div class="colm twc ">
+						<section id="text-5">			<div class="textwidget"><div style="margin: 20px 0px 20px 0px;">
+<p><a href="/"><noscript><img src="https://www.dataquest.io/wp-content/uploads/2019/01/dq-1.png" width="170px" height="28px" /></noscript><img class="lazyload" src='data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20170%2028%22%3E%3C/svg%3E' data-src="https://www.dataquest.io/wp-content/uploads/2019/01/dq-1.png" width="170px" height="28px" /></a></p>
+</div>
+<div style="margin: 20px 0px 20px 0px;">All rights reserved © 2019 – Dataquest Labs, Inc.</div>
+<div style="margin: 20px 50px 20px 0px;">We are committed to protecting your personal information and your right to privacy. Privacy Policy last updated June 13th, 2019 &#8211; <a style="color: #ffffff; font-size: 12px;" href="/privacy">review here</a>.</div>
+</div>
+		</section>					</div>
+									<div class="colm twc lst">
+						<section id="text-9">			<div class="textwidget"><div class="footer-links" style="font-size: 12px; margin: 20px 0px 0px 0px;">
+<div style="float: left; margin-right: 50px;"><a href="https://www.dataquest.io/help" target="_blank" rel="noopener noreferrer">Help</a><br />
+<a href="https://www.dataquest.io/blog" target="_blank" rel="noopener noreferrer">Blog</a><br />
+<a href="https://www.dataquest.io/directory">Directory</a><br />
+<a href="https://community.dataquest.io" target="_blank" rel="noopener noreferrer">Community</a></div>
+<div style="float: left; margin-right: 50px;"><a href="https://www.dataquest.io/subscribe">Pricing</a><br />
+<a href="https://www.dataquest.io/were-hiring">We&#8217;re Hiring</a><br />
+<a href="https://www.dataquest.io/terms">Legals</a><br />
+<a href="https://www.dataquest.io/privacy">Privacy</a></div>
+<div style="float: left; margin-bottom: 100px;"><a href="https://www.facebook.com/dataquestio" target="_blank" rel="noopener noreferrer">Facebook</a><br />
+<a href="https://twitter.com/dataquestio" target="_blank" rel="noopener noreferrer">Twitter</a><br />
+<a href="https://www.linkedin.com/company/dataquest-io" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+</div>
+</div>
+		</section>					</div>
+								<div class="clear"></div>
+			</div>
+		</div>
+			<div class="copy">
+		<div class="wrp cnt">
+			<p>
+											</p>
+					</div>
+	</div>
+	</footer>
+
+
+	<script>
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
+  analytics.load("BJhKYEXejzjqXq7xQDFI6N0M5W7HBAH5");
+  analytics.page();
+  }}();
+</script><script type='text/javascript'>
+/* <![CDATA[ */
+var TVE_Ult_Data = {"ajaxurl":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","ajax_load_action":"tve_ult_ajax_load","conversion_events_action":"tve_ult_conversion_event","shortcode_campaign_ids":[],"matched_display_settings":[],"campaign_ids":[],"post_id":21484,"is_singular":true,"tu_em":""};
+/* ]]> */
+</script>
+		<script type="text/javascript" src="https://www.dataquest.io/wp-content/plugins/thrive-ultimatum/js/dist/no-campaign.min.js?v=2.2.5.1"></script><style>.lazyload,.lazyloading{opacity:0;}.lazyloaded{opacity:1;transition:opacity 300ms;}</style><noscript><style>.lazyload{display:none;}</style></noscript><script data-noptimize="1">window.lazySizesConfig=window.lazySizesConfig||{};window.lazySizesConfig.loadMode=1;</script><script async data-noptimize="1" src='https://www.dataquest.io/wp-content/plugins/autoptimize/classes/external/js/lazysizes.min.js'></script><span style="display:none" class="tl-placeholder-f-type-ribbon"></span><style type="text/css">.saboxplugin-wrap{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;border:1px solid #eee;width:100%;clear:both;display:block;overflow:hidden;word-wrap:break-word;position:relative}.saboxplugin-wrap .saboxplugin-gravatar{float:left;padding:20px}.saboxplugin-wrap .saboxplugin-gravatar img{max-width:100px;height:auto;border-radius:0;}.saboxplugin-wrap .saboxplugin-authorname{font-size:18px;line-height:1;margin:20px 0 0 20px;display:block}.saboxplugin-wrap .saboxplugin-authorname a{text-decoration:none}.saboxplugin-wrap .saboxplugin-authorname a:focus{outline:0}.saboxplugin-wrap .saboxplugin-desc{display:block;margin:5px 20px}.saboxplugin-wrap .saboxplugin-desc a{text-decoration:underline}.saboxplugin-wrap .saboxplugin-desc p{margin:5px 0 12px}.saboxplugin-wrap .saboxplugin-web{margin:0 20px 15px;text-align:left}.saboxplugin-wrap .sab-web-position{text-align:right}.saboxplugin-wrap .saboxplugin-web a{color:#ccc;text-decoration:none}.saboxplugin-wrap .saboxplugin-socials{position:relative;display:block;background:#fcfcfc;padding:5px;border-top:1px solid #eee}.saboxplugin-wrap .saboxplugin-socials a svg{width:20px;height:20px}.saboxplugin-wrap .saboxplugin-socials a svg .st2{fill:#fff; transform-origin:center center;}.saboxplugin-wrap .saboxplugin-socials a svg .st1{fill:rgba(0,0,0,.3)}.saboxplugin-wrap .saboxplugin-socials a:hover{opacity:.8;-webkit-transition:opacity .4s;-moz-transition:opacity .4s;-o-transition:opacity .4s;transition:opacity .4s;box-shadow:none!important;-webkit-box-shadow:none!important}.saboxplugin-wrap .saboxplugin-socials .saboxplugin-icon-color{box-shadow:none;padding:0;border:0;-webkit-transition:opacity .4s;-moz-transition:opacity .4s;-o-transition:opacity .4s;transition:opacity .4s;display:inline-block;color:#fff;font-size:0;text-decoration:inherit;margin:5px;-webkit-border-radius:0;-moz-border-radius:0;-ms-border-radius:0;-o-border-radius:0;border-radius:0;overflow:hidden}.saboxplugin-wrap .saboxplugin-socials .saboxplugin-icon-grey{text-decoration:inherit;box-shadow:none;position:relative;display:-moz-inline-stack;display:inline-block;vertical-align:middle;zoom:1;margin:10px 5px;color:#444}.clearfix:after,.clearfix:before{content:' ';display:table;line-height:0;clear:both}.ie7 .clearfix{zoom:1}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-twitch{border-color:#38245c}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-addthis{border-color:#e91c00}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-behance{border-color:#003eb0}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-delicious{border-color:#06c}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-deviantart{border-color:#036824}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-digg{border-color:#00327c}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-dribbble{border-color:#ba1655}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-facebook{border-color:#1e2e4f}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-flickr{border-color:#003576}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-github{border-color:#264874}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-google{border-color:#0b51c5}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-googleplus{border-color:#96271a}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-html5{border-color:#902e13}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-instagram{border-color:#1630aa}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-linkedin{border-color:#00344f}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-pinterest{border-color:#5b040e}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-reddit{border-color:#992900}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-rss{border-color:#a43b0a}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-sharethis{border-color:#5d8420}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-skype{border-color:#00658a}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-soundcloud{border-color:#995200}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-spotify{border-color:#0f612c}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-stackoverflow{border-color:#a95009}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-steam{border-color:#006388}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-user_email{border-color:#b84e05}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-stumbleUpon{border-color:#9b280e}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-tumblr{border-color:#10151b}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-twitter{border-color:#0967a0}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-vimeo{border-color:#0d7091}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-windows{border-color:#003f71}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-whatsapp{border-color:#003f71}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-wordpress{border-color:#0f3647}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-yahoo{border-color:#14002d}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-youtube{border-color:#900}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-xing{border-color:#000202}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-mixcloud{border-color:#2475a0}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-vk{border-color:#243549}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-medium{border-color:#00452c}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-quora{border-color:#420e00}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-meetup{border-color:#9b181c}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-goodreads{border-color:#000}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-snapchat{border-color:#999700}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-500px{border-color:#00557f}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-mastodont{border-color:#185886}.sabox-plus-item{margin-bottom:20px}@media screen and (max-width:480px){.saboxplugin-wrap{text-align:center}.saboxplugin-wrap .saboxplugin-gravatar{float:none;padding:20px 0;text-align:center;margin:0 auto;display:block}.saboxplugin-wrap .saboxplugin-gravatar img{float:none;display:inline-block;display:-moz-inline-stack;vertical-align:middle;zoom:1}.saboxplugin-wrap .saboxplugin-desc{margin:0 10px 20px;text-align:center}.saboxplugin-wrap .saboxplugin-authorname{text-align:center;margin:10px 0 20px}}body .saboxplugin-authorname a,body .saboxplugin-authorname a:hover{box-shadow:none;-webkit-box-shadow:none}a.sab-profile-edit{font-size:16px!important;line-height:1!important}.sab-edit-settings a,a.sab-profile-edit{color:#0073aa!important;box-shadow:none!important;-webkit-box-shadow:none!important}.sab-edit-settings{margin-right:15px;position:absolute;right:0;z-index:2;bottom:10px;line-height:20px}.sab-edit-settings i{margin-left:5px}.saboxplugin-socials{line-height:1!important}.rtl .saboxplugin-wrap .saboxplugin-gravatar{float:right}.rtl .saboxplugin-wrap .saboxplugin-authorname{display:flex;align-items:center}.rtl .saboxplugin-wrap .saboxplugin-authorname .sab-profile-edit{margin-right:10px}.rtl .sab-edit-settings{right:auto;left:0}img.sab-custom-avatar{max-width:75px;}.saboxplugin-wrap .saboxplugin-gravatar img {-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;-o-border-radius:50%;border-radius:50%;}.saboxplugin-wrap {margin-top:20px; margin-bottom:0px; padding: 0px 0px }.saboxplugin-wrap .saboxplugin-authorname {font-size:16px; line-height:23px;}.saboxplugin-wrap .saboxplugin-desc p, .saboxplugin-wrap .saboxplugin-desc {font-size:13px !important; line-height:20px !important;}.saboxplugin-wrap .saboxplugin-web {font-size:14px;}.saboxplugin-wrap .saboxplugin-socials a svg {width:18px;height:18px;}</style><script type='text/javascript' src='https://www.dataquest.io/wp-content/plugins/thrive-headline-optimizer/frontend/js/triggers.min.js?ver=1.2.0'></script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-includes/js/imagesloaded.min.js?ver=3.2.0'></script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-includes/js/masonry.min.js?ver=3.3.2'></script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-includes/js/jquery/jquery.masonry.min.js'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var tve_frontend_options = {"is_editor_page":"","page_events":[],"is_single":"1","ajaxurl":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","social_fb_app_id":"","dash_url":"https:\/\/www.dataquest.io\/wp-content\/plugins\/thrive-visual-editor\/thrive-dashboard","translations":{"Copy":"Copy"},"post_id":"21484"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-content/plugins/thrive-visual-editor/editor/js/dist/frontend.min.js?ver=2.4.5.1'></script>
+<script type='text/javascript' src='//www.dataquest.io/wp-content/plugins/thrive-leads/js/frontend.min.js?ver=2.2.6.1'></script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-content/plugins/posts-data-table/assets/js/datatables/datatables.min.js?ver=1.10.18'></script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-content/plugins/posts-data-table/assets/js/posts-data-table.min.js?ver=1.3'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var ThriveApp = {"ajax_url":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","lazy_load_comments":"1","comments_loaded":"0","translations":{"ProductDetails":"Product Details"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-content/themes/ignition/js/script.min.js?ver=5.3'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var tve_dash_front = {"ajaxurl":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","force_ajax_send":"","is_crawler":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-content/plugins/thrive-visual-editor/thrive-dashboard/js/dist/frontend.min.js?ver=2.2.5.2'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var ThriveApprentice = {"ajax_url":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","current_post_id":"21484","lang":{"remove_from_fav":"Remove from Favorites","add_to_fav":"Mark as Favorite"},"progress_status":{"new":"new","started":"started","completed":"completed"}};
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-content/themes/ignition/appr/js/thrive-apprentice.js?ver=5.3'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var q2w3_sidebar_options = [{"sidebar":"sidebar-1","margin_top":0,"margin_bottom":0,"stop_id":"dq_footer","screen_max_width":500,"screen_max_height":0,"width_inherit":false,"refresh_interval":1500,"window_load_hook":false,"disable_mo_api":false,"widgets":["custom_html-2","search-3","nav_menu-3","nav_menu-10"]}];
+/* ]]> */
+</script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-content/plugins/q2w3-fixed-widget/js/q2w3-fixed-widget.min.js?ver=5.1.9'></script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-content/plugins/ank-prism-for-wp/out/prism-js.min.js?ver=1550607458'></script>
+<script type='text/javascript' src='https://www.dataquest.io/wp-includes/js/wp-embed.min.js?ver=5.3'></script>
+<script type="text/javascript">/*<![CDATA[*/var THO_Front = THO_Front || {}; THO_Front.data = {"end_of_content_id":"tho-end-content","is_single":true,"log_url":"https:\/\/www.dataquest.io\/wp-json\/tho\/v1\/logs","active_triggers":{"viewport":"thrive_headline"},"log_engagements":[],"post_id":21484,"test_id":0,"const":{"_e_click":1,"_e_scroll":2,"_e_time":3,"_impression":1,"_engagement":2}}/*]]> */</script><script type="text/javascript">var tcb_post_lists=JSON.parse('[]');</script><script type="text/javascript">/*<![CDATA[*/if ( !window.TL_Const ) {var TL_Const={"security":"e37e221f0b","ajax_url":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","forms":[],"action_conversion":"tve_leads_ajax_conversion","action_impression":"tve_leads_ajax_impression","ajax_load":1,"main_group_id":17187,"display_options":{"allowed_post_types":[],"flag_url_match":false},"shortcode_ids":["21375","11317"],"custom_post_data":{"http_referrer":"http:\/\/jetsli.de\/crawler"},"current_screen":{"screen_type":4,"screen_id":21484},"ignored_fields":["email","_captcha_size","_captcha_theme","_captcha_type","_submit_option","_use_captcha","g-recaptcha-response","__tcb_lg_fc","__tcb_lg_msg","_state","_form_type","_error_message_option","_back_url","_submit_option","url","_asset_group","_asset_option","mailchimp_optin"]};} else {ThriveGlobal.$j.extend(true, TL_Const, {"security":"e37e221f0b","ajax_url":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","forms":[],"action_conversion":"tve_leads_ajax_conversion","action_impression":"tve_leads_ajax_impression","ajax_load":1,"main_group_id":17187,"display_options":{"allowed_post_types":[],"flag_url_match":false},"shortcode_ids":["21375","11317"],"custom_post_data":{"http_referrer":"http:\/\/jetsli.de\/crawler"},"current_screen":{"screen_type":4,"screen_id":21484},"ignored_fields":["email","_captcha_size","_captcha_theme","_captcha_type","_submit_option","_use_captcha","g-recaptcha-response","__tcb_lg_fc","__tcb_lg_msg","_state","_form_type","_error_message_option","_back_url","_submit_option","url","_asset_group","_asset_option","mailchimp_optin"]})} /*]]> */</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"rayId":"53f7c7e2c821c5c0","version":"2019.10.2","startTime":1575399598653}'></script>
+</body>
+</html>
