@@ -119,6 +119,7 @@ def main():
     print("Loading data...")
     fp.write("Loading data..." + "\n")
     # url = "https://www.dataquest.io/blog/"
+    # Initial read-in from downloaded pages
     folder = "./webpages/"
     input_file = "./webpages/input.txt"
     wp = open(input_file, "r")
@@ -131,7 +132,6 @@ def main():
         page = open(folder+filename, "r")
         Crawler.page_read(page, url, False)
 
-    #Loop user searching
     print("You can begin searching now. When done please exit using the command")
     fp.write("You can begin searching now. When done please exit using the command"+ "\n")
     print(":quit")
@@ -140,6 +140,8 @@ def main():
     fp.write("for more options type "+ "\n")
     print(":menu")
     fp.write(":menu"+ "\n")
+    
+    #Loop user searching
     while True:
         search_terms = input("Search: ")
         fp.write("Search: " + search_terms + "\n")
