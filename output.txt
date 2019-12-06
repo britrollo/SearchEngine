@@ -1,1 +1,168 @@
-
+Loading data...
+You can begin searching now. When done please exit using the command
+:quit
+for more options type 
+:menu
+Search: :menu
+Menu:
+:menu - to show menu
+:add  - add new urls to search memory
+:urls - views urls available in memory
+:quit - to end session
+Search: :MENU
+Menu:
+:menu - to show menu
+:add  - add new urls to search memory
+:urls - views urls available in memory
+:quit - to end session
+Search: :urls
+Count: 10
+https://www.dataquest.io/blog, https://www.dataquest.io/blog/best-free-tools-data-science, https://www.dataquest.io/blog/best-study-habit, https://www.dataquest.io/blog/data-science-bootcamp, https://www.dataquest.io/blog/dataquest-vs-springboard, https://www.dataquest.io/blog/dataquest-vs-udacity, https://www.dataquest.io/blog/excel-vs-python, https://www.dataquest.io/blog/intermediate-r-statistics-course-averages-variability, https://www.dataquest.io/blog/python-list-tutorial, https://www.dataquest.io/blog/sql-joins-tutorial
+Search: :add
+Search: :urls
+Count: 16
+https://www.dataquest.io/blog, https://www.dataquest.io/blog/best-free-tools-data-science, https://www.dataquest.io/blog/best-study-habit, https://www.dataquest.io/blog/data-science-bootcamp, https://www.dataquest.io/blog/dataquest-vs-springboard, https://www.dataquest.io/blog/dataquest-vs-udacity, https://www.dataquest.io/blog/excel-vs-python, https://www.dataquest.io/blog/intermediate-r-statistics-course-averages-variability, https://www.dataquest.io/blog/python-list-tutorial, https://www.dataquest.io/blog/sql-joins-tutorial, https://www.dataquest.io, https://www.dataquest.io/directory, https://www.dataquest.io/blog/topics/student-stories, https://www.dataquest.io/were-hiring, http://app.dataquest.io/signup, http://app.dataquest.io
+Search: data
+https://www.dataquest.io/blog
+https://www.dataquest.io/blog/topics/student-stories
+http://app.dataquest.io/signup
+http://app.dataquest.io
+https://www.dataquest.io/were-hiring
+Search: DATA
+https://www.dataquest.io/blog
+https://www.dataquest.io/blog/topics/student-stories
+http://app.dataquest.io/signup
+http://app.dataquest.io
+https://www.dataquest.io/were-hiring
+Search: python
+https://www.dataquest.io/blog/best-free-tools-data-science
+https://www.dataquest.io/blog/excel-vs-python
+https://www.dataquest.io/blog
+https://www.dataquest.io/blog/python-list-tutorial
+https://www.dataquest.io/directory
+https://www.dataquest.io
+https://www.dataquest.io/blog/topics/student-stories
+https://www.dataquest.io/blog/sql-joins-tutorial
+http://app.dataquest.io/signup
+https://www.dataquest.io/blog/data-science-bootcamp
+http://app.dataquest.io
+https://www.dataquest.io/blog/best-study-habit
+https://www.dataquest.io/blog/dataquest-vs-udacity
+https://www.dataquest.io/blog/intermediate-r-statistics-course-averages-variability
+Search: python data
+https://www.dataquest.io/blog
+https://www.dataquest.io/blog/topics/student-stories
+http://app.dataquest.io
+http://app.dataquest.io/signup
+Search: data python
+https://www.dataquest.io/blog
+https://www.dataquest.io/blog/topics/student-stories
+http://app.dataquest.io
+http://app.dataquest.io/signup
+Search: bird
+No results found
+Search: python bird
+No results found
+Search: the 
+No results found
+Words excluded from search: ['the']
+Search: the data
+https://www.dataquest.io/blog
+https://www.dataquest.io/blog/topics/student-stories
+http://app.dataquest.io/signup
+http://app.dataquest.io
+https://www.dataquest.io/were-hiring
+Words excluded from search: ['the']
+Search: python the her his
+https://www.dataquest.io/blog/best-free-tools-data-science
+https://www.dataquest.io/blog/excel-vs-python
+https://www.dataquest.io/blog
+https://www.dataquest.io/blog/python-list-tutorial
+https://www.dataquest.io/directory
+https://www.dataquest.io
+https://www.dataquest.io/blog/topics/student-stories
+https://www.dataquest.io/blog/sql-joins-tutorial
+http://app.dataquest.io/signup
+https://www.dataquest.io/blog/data-science-bootcamp
+http://app.dataquest.io
+https://www.dataquest.io/blog/best-study-habit
+https://www.dataquest.io/blog/dataquest-vs-udacity
+https://www.dataquest.io/blog/intermediate-r-statistics-course-averages-variability
+Words excluded from search: ['the', 'her', 'his']
+Search: the python his data
+https://www.dataquest.io/blog
+https://www.dataquest.io/blog/topics/student-stories
+http://app.dataquest.io
+http://app.dataquest.io/signup
+Words excluded from search: ['the', 'his']
+Search: 123
+No results found
+Words excluded from search: ['123']
+Search: python1
+No results found
+Words excluded from search: ['python1']
+Search: da1
+No results found
+Words excluded from search: ['da1']
+Search: da1a
+No results found
+Words excluded from search: ['da1a']
+Search: data 1234
+https://www.dataquest.io/blog
+https://www.dataquest.io/blog/topics/student-stories
+http://app.dataquest.io/signup
+http://app.dataquest.io
+https://www.dataquest.io/were-hiring
+Words excluded from search: ['1234']
+Search: python!
+https://www.dataquest.io/blog/best-free-tools-data-science
+https://www.dataquest.io/blog/excel-vs-python
+https://www.dataquest.io/blog
+https://www.dataquest.io/blog/python-list-tutorial
+https://www.dataquest.io/directory
+https://www.dataquest.io
+https://www.dataquest.io/blog/topics/student-stories
+https://www.dataquest.io/blog/sql-joins-tutorial
+http://app.dataquest.io/signup
+https://www.dataquest.io/blog/data-science-bootcamp
+http://app.dataquest.io
+https://www.dataquest.io/blog/best-study-habit
+https://www.dataquest.io/blog/dataquest-vs-udacity
+https://www.dataquest.io/blog/intermediate-r-statistics-course-averages-variability
+Search: python ...
+https://www.dataquest.io/blog/best-free-tools-data-science
+https://www.dataquest.io/blog/excel-vs-python
+https://www.dataquest.io/blog
+https://www.dataquest.io/blog/python-list-tutorial
+https://www.dataquest.io/directory
+https://www.dataquest.io
+https://www.dataquest.io/blog/topics/student-stories
+https://www.dataquest.io/blog/sql-joins-tutorial
+http://app.dataquest.io/signup
+https://www.dataquest.io/blog/data-science-bootcamp
+http://app.dataquest.io
+https://www.dataquest.io/blog/best-study-habit
+https://www.dataquest.io/blog/dataquest-vs-udacity
+https://www.dataquest.io/blog/intermediate-r-statistics-course-averages-variability
+Search: '
+No results found
+Search: \
+No results found
+Search: >
+No results found
+Search: .
+No results found
+Search: ?
+No results found
+Search: 
+Please enter a non-empty search.
+Search:  
+Please enter a non-empty search.
+Search: :menu
+Menu:
+:menu - to show menu
+:add  - add new urls to search memory
+:urls - views urls available in memory
+:quit - to end session
+Search: :quit
+Goodbye!

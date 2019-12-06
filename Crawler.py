@@ -122,4 +122,5 @@ def remove_punc(txt):
     for i in range(len(words)):
         words[i] = words[i].replace('_', '')
         words[i] = words[i].replace('-', '')
+        words[i] = words[i].replace('~', '')
     return words

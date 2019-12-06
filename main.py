@@ -183,8 +183,10 @@ def main():
             excluded_words = []
             for w in search_terms:
                 if not Crawler.str_check(w):
-                    excluded_words.append(w)
-                    search_terms.remove(w)
+                    excluded_words += [w]
+                    
+            for w in excluded_words:
+                search_terms.remove(w)
             
             results = search(search_terms)
             if results:
