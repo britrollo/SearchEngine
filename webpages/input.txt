@@ -4,7 +4,7 @@ best-study-habit.htm https://www.dataquest.io/blog/best-study-habit
 data-science-bootcamp.htm https://www.dataquest.io/blog/data-science-bootcamp
 dataquest-vs-springboard.htm https://www.dataquest.io/blog/dataquest-vs-springboard
 dataquest-vs-udacity.htm https://www.dataquest.io/blog/dataquest-vs-udacity
-excel-vs-python.htm ps://www.dataquest.io/blog/excel-vs-python
+excel-vs-python.htm https://www.dataquest.io/blog/excel-vs-python
 intermediate-r-statistics-course-averages-variability.htm https://www.dataquest.io/blog/intermediate-r-statistics-course-averages-variability
 python-list-tutorial.htm https://www.dataquest.io/blog/python-list-tutorial
 sql-joins-tutorial.htm https://www.dataquest.io/blog/sql-joins-tutorial
